@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 
 // DOBLES FEMENINO
 const doblesParticipantes = [
-  { letra: 'A', nombre: 'Arizaga / Yánez' },
-  { letra: 'B', nombre: 'Bak / Castrillejo' },
-  { letra: 'C', nombre: 'Marcos / Serna' },
-  { letra: 'D', nombre: 'Rodríguez / Caballero' }
+  { letra: 'A', nombre: 'Margarita Arizaga / Dora Yánez' },
+  { letra: 'B', nombre: 'Paula Bak / Mónica Castrillejo' },
+  { letra: 'C', nombre: 'Nadia Marcos / María Jesús Serna' },
+  { letra: 'D', nombre: 'Mónica Rodríguez / Ana María Caballero' }
 ];
 
 const doblesPartidos = [
@@ -66,16 +66,25 @@ const individualPartidosB = [
         <div class="ronda-partidos">
           <div class="ronda-label">Ronda {r.ronda}</div>
           {r.partidos.map(p => (
-            <div class="partido-row">
-              <span class="equipo local">{p.local}</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+            <div class="partido-card" data-match>
+              <div class="partido-equipo" data-team="1">
+                <span class="equipo-letra">{p.local}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="vs">-</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+              <div class="partido-equipo" data-team="2">
+                <span class="equipo-letra">{p.visitante}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="equipo visitante">{p.visitante}</span>
             </div>
           ))}
         </div>
@@ -114,21 +123,23 @@ const individualPartidosB = [
     <p class="formato-nota">2 sets a 21 · Tercer set a 15 si hay empate</p>
     <div class="bracket">
       <div class="bracket-round">
-        <div class="match final-match">
-          <div class="match-team">
+        <div class="match final-match" data-match>
+          <div class="match-team" data-team="1">
             <span class="team-name">1ª Clasificada</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
-          <div class="match-team">
+          <div class="match-team" data-team="2">
             <span class="team-name">2ª Clasificada</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
         </div>
@@ -159,16 +170,25 @@ const individualPartidosB = [
         </div>
         <div class="partidos-lista">
           {individualPartidosA.map(p => (
-            <div class="partido-row compact">
-              <span class="equipo local">{p.local}</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+            <div class="partido-card compact" data-match>
+              <div class="partido-equipo" data-team="1">
+                <span class="equipo-letra">{p.local}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="vs">-</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+              <div class="partido-equipo" data-team="2">
+                <span class="equipo-letra">{p.visitante}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="equipo visitante">{p.visitante}</span>
             </div>
           ))}
         </div>
@@ -186,16 +206,25 @@ const individualPartidosB = [
         </div>
         <div class="partidos-lista">
           {individualPartidosB.map(p => (
-            <div class="partido-row compact">
-              <span class="equipo local">{p.local}</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+            <div class="partido-card compact" data-match>
+              <div class="partido-equipo" data-team="1">
+                <span class="equipo-letra">{p.local}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="vs">-</span>
-              <div class="sets-container">
-                <div class="set-box"></div>
+              <div class="partido-equipo" data-team="2">
+                <span class="equipo-letra">{p.visitante}</span>
+                <div class="sets-ganados"><span data-sets-won>-</span></div>
+                <div class="puntos-set">
+                  <input type="text" maxlength="2" data-set="1" />
+                  <input type="text" maxlength="2" data-set="2" />
+                  <input type="text" maxlength="2" class="third" data-set="3" />
+                </div>
               </div>
-              <span class="equipo visitante">{p.visitante}</span>
             </div>
           ))}
         </div>
@@ -207,39 +236,43 @@ const individualPartidosB = [
     <div class="bracket">
       <div class="bracket-round">
         <div class="round-label">Semifinales</div>
-        <div class="match">
-          <div class="match-team">
+        <div class="match" data-match>
+          <div class="match-team" data-team="1">
             <span class="team-name">1ª Grupo A</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
-          <div class="match-team">
+          <div class="match-team" data-team="2">
             <span class="team-name">2ª Grupo B</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
         </div>
-        <div class="match">
-          <div class="match-team">
+        <div class="match" data-match>
+          <div class="match-team" data-team="1">
             <span class="team-name">1ª Grupo B</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
-          <div class="match-team">
+          <div class="match-team" data-team="2">
             <span class="team-name">2ª Grupo A</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
         </div>
@@ -253,21 +286,23 @@ const individualPartidosB = [
 
       <div class="bracket-round">
         <div class="round-label">Final</div>
-        <div class="match final-match">
-          <div class="match-team">
+        <div class="match final-match" data-match>
+          <div class="match-team" data-team="1">
             <span class="team-name">Ganadora SF1</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
-          <div class="match-team">
+          <div class="match-team" data-team="2">
             <span class="team-name">Ganadora SF2</span>
+            <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <div class="score-box"></div>
-              <div class="score-box"></div>
-              <div class="score-box third"></div>
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
         </div>
@@ -283,6 +318,45 @@ const individualPartidosB = [
     <p>Sin participación: Dobles Mixto · Dobles Masculino · Individual Masculino</p>
   </section>
 </Layout>
+
+<script>
+  function calculateSetsWon() {
+    document.querySelectorAll('[data-match]').forEach(match => {
+      const team1 = match.querySelector('[data-team="1"]');
+      const team2 = match.querySelector('[data-team="2"]');
+
+      if (!team1 || !team2) return;
+
+      let sets1 = 0;
+      let sets2 = 0;
+
+      for (let i = 1; i <= 3; i++) {
+        const input1 = team1.querySelector(`[data-set="${i}"]`);
+        const input2 = team2.querySelector(`[data-set="${i}"]`);
+
+        if (!input1 || !input2) continue;
+
+        const score1 = parseInt(input1.value) || 0;
+        const score2 = parseInt(input2.value) || 0;
+
+        if (score1 > 0 || score2 > 0) {
+          if (score1 > score2) sets1++;
+          else if (score2 > score1) sets2++;
+        }
+      }
+
+      const display1 = team1.querySelector('[data-sets-won]');
+      const display2 = team2.querySelector('[data-sets-won]');
+
+      if (display1) display1.textContent = sets1 > 0 || sets2 > 0 ? sets1 : '-';
+      if (display2) display2.textContent = sets1 > 0 || sets2 > 0 ? sets2 : '-';
+    });
+  }
+
+  document.querySelectorAll('[data-set]').forEach(input => {
+    input.addEventListener('input', calculateSetsWon);
+  });
+</script>
 
 <style>
   h2 {
@@ -339,8 +413,8 @@ const individualPartidosB = [
   /* Participantes */
   .participantes-grid {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    gap: 6px;
     margin-bottom: 10px;
   }
 
@@ -348,10 +422,8 @@ const individualPartidosB = [
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    font-size: 0.85rem;
+    padding: 4px 0;
+    font-size: 0.9rem;
   }
 
   .letra {
@@ -380,7 +452,7 @@ const individualPartidosB = [
   /* Partidos de grupos */
   .partidos-grupos {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 15px;
     margin-bottom: 25px;
   }
@@ -388,7 +460,7 @@ const individualPartidosB = [
   .ronda-partidos {
     border: 1px solid #e5e5e5;
     border-radius: 8px;
-    padding: 12px;
+    padding: 15px;
   }
 
   .ronda-label {
@@ -396,52 +468,87 @@ const individualPartidosB = [
     font-weight: 600;
     color: #888;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     text-align: center;
   }
 
-  .partido-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px;
+  .partido-card {
     background: #fafafa;
     border-radius: 6px;
-    margin-bottom: 6px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
   }
 
-  .partido-row:last-child {
+  .partido-card:last-child {
     margin-bottom: 0;
   }
 
-  .partido-row.compact {
-    padding: 6px 8px;
+  .partido-card.compact {
+    padding: 8px 10px;
   }
 
-  .partido-row .equipo {
+  .partido-equipo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+
+  .partido-equipo:first-child {
+    border-bottom: 1px solid #eee;
+  }
+
+  .equipo-letra {
     font-weight: 600;
-    font-size: 0.9rem;
-    width: 20px;
-    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    width: 24px;
   }
 
-  .partido-row .vs {
-    color: #ccc;
-    font-size: 0.8rem;
-  }
-
-  .sets-container {
+  .puntos-set {
     display: flex;
     gap: 4px;
   }
 
-  .set-box {
-    width: 28px;
-    height: 24px;
+  .puntos-set input {
+    width: 40px;
+    height: 32px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: #fff;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .puntos-set input:focus {
+    outline: none;
+    border-color: #999;
+  }
+
+  .puntos-set input.third {
+    border-style: dashed;
+    opacity: 0.6;
+  }
+
+  .sets-ganados {
+    margin-right: auto;
+    margin-left: 10px;
+  }
+
+  .sets-ganados span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
   }
 
   /* Clasificación */
@@ -570,7 +677,7 @@ const individualPartidosB = [
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     overflow: hidden;
-    min-width: 180px;
+    min-width: 240px;
     background: #fff;
   }
 
@@ -593,22 +700,47 @@ const individualPartidosB = [
 
   .score-boxes {
     display: flex;
-    gap: 3px;
+    gap: 4px;
   }
 
-  .score-box {
-    width: 24px;
-    height: 20px;
+  .score-input {
+    width: 36px;
+    height: 28px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 4px;
     background: #fff;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     text-align: center;
+    color: #333;
   }
 
-  .score-box.third {
+  .score-input:focus {
+    outline: none;
+    border-color: #999;
+  }
+
+  .score-input.third {
     border-style: dashed;
-    opacity: 0.5;
+    opacity: 0.6;
+  }
+
+  .score-total {
+    margin-right: 8px;
+  }
+
+  .score-total span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
   }
 
   .final-match {
@@ -678,17 +810,15 @@ const individualPartidosB = [
     font-size: 0.85rem;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 800px) {
     .partidos-grupos {
       grid-template-columns: 1fr;
     }
+  }
 
+  @media (max-width: 600px) {
     .grupos-grid {
       grid-template-columns: 1fr;
-    }
-
-    .participantes-grid {
-      flex-direction: column;
     }
 
     .bracket {
