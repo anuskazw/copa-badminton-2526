@@ -9,39 +9,20 @@ const doblesParticipantes = [
   { letra: 'D', nombre: 'Mónica Rodríguez / Ana María Caballero' }
 ];
 
-const doblesPartidos = [
-  { ronda: 1, partidos: [{ local: 'A', visitante: 'B' }, { local: 'C', visitante: 'D' }] },
-  { ronda: 2, partidos: [{ local: 'A', visitante: 'C' }, { local: 'B', visitante: 'D' }] },
-  { ronda: 3, partidos: [{ local: 'A', visitante: 'D' }, { local: 'B', visitante: 'C' }] }
-];
-
 // INDIVIDUAL FEMENINO
-const individualGrupoA = [
+const individualParticipantes = [
   { letra: 'A', nombre: 'Mónica Rodríguez' },
   { letra: 'B', nombre: 'Paula Bak' },
-  { letra: 'C', nombre: 'Margarita Arizaga' }
-];
-
-const individualGrupoB = [
+  { letra: 'C', nombre: 'Margarita Arizaga' },
   { letra: 'D', nombre: 'Mónica Castrillejo' },
   { letra: 'E', nombre: 'Jamie Gissel Valencia' }
-];
-
-const individualPartidosA = [
-  { local: 'A', visitante: 'B' },
-  { local: 'A', visitante: 'C' },
-  { local: 'B', visitante: 'C' }
-];
-
-const individualPartidosB = [
-  { local: 'D', visitante: 'E' }
 ];
 ---
 
 <Layout title="Copa de Bádminton FMDS 2025/2026">
   <div class="info">
     <p><strong>📍 Horario:</strong> 10:00 - 20:00</p>
-    <p><strong>📋 Grupos:</strong> 1 set a 21 · <strong>Eliminatorias:</strong> 2 sets a 21 (3º a 15)</p>
+    <p><strong>📋 Formato:</strong> 2 sets a 21 · Tercer set a 15 si hay empate</p>
   </div>
 
   <!-- DOBLES FEMENINO -->
@@ -58,74 +39,93 @@ const individualPartidosB = [
       ))}
     </div>
 
-    <h3>Fase de grupos</h3>
-    <p class="formato-nota">Todas contra todas · 1 set a 21 · Clasifican 1ª y 2ª</p>
-
-    <div class="partidos-grupos">
-      {doblesPartidos.map(r => (
-        <div class="ronda-partidos">
-          <div class="ronda-label">Ronda {r.ronda}</div>
-          {r.partidos.map(p => (
-            <div class="partido-card" data-match>
-              <div class="partido-equipo" data-team="1">
-                <span class="equipo-letra">{p.local}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
-              </div>
-              <div class="partido-equipo" data-team="2">
-                <span class="equipo-letra">{p.visitante}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
+    <h3>Cuadro de Eliminatorias</h3>
+    <div class="bracket-container">
+      <div class="bracket">
+        <div class="bracket-round">
+          <div class="round-label">Semifinales</div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">A</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
-          ))}
+            <div class="match-team" data-team="2">
+              <span class="team-name">D</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+          </div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">B</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">C</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
 
-    <div class="clasificacion-box">
-      <div class="clasificacion-title">Clasificación</div>
-      <table class="tabla-clasificacion">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Pareja</th>
-            <th>J</th>
-            <th>G</th>
-            <th>P</th>
-            <th>Pts</th>
-          </tr>
-        </thead>
-        <tbody>
-          {doblesParticipantes.map((p, i) => (
-            <tr>
-              <td class="pos">{i + 1}</td>
-              <td class="nombre"><span class="letra-mini">{p.letra}</span> {p.nombre}</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td class="pts">-</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        <div class="bracket-connector">
+          <div class="connector-line top"></div>
+          <div class="connector-line bottom"></div>
+          <div class="connector-merge"></div>
+        </div>
 
-    <h3>Final</h3>
-    <p class="formato-nota">2 sets a 21 · Tercer set a 15 si hay empate</p>
-    <div class="bracket">
-      <div class="bracket-round">
-        <div class="match final-match" data-match>
+        <div class="bracket-round">
+          <div class="round-label">Final</div>
+          <div class="match final-match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">Gan. SF1</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">Gan. SF2</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bracket-round trophy">
+          <div class="trophy-icon">🥇</div>
+        </div>
+      </div>
+
+      <div class="tercer-puesto">
+        <div class="round-label">3er - 4º Puesto</div>
+        <div class="match" data-match>
           <div class="match-team" data-team="1">
-            <span class="team-name">1ª Clasificada</span>
+            <span class="team-name">Perd. SF1</span>
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -134,7 +134,7 @@ const individualPartidosB = [
             </div>
           </div>
           <div class="match-team" data-team="2">
-            <span class="team-name">2ª Clasificada</span>
+            <span class="team-name">Perd. SF2</span>
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -143,9 +143,7 @@ const individualPartidosB = [
             </div>
           </div>
         </div>
-      </div>
-      <div class="bracket-round trophy">
-        <div class="trophy-icon">🏆</div>
+        <div class="trophy-icon small">🥉</div>
       </div>
     </div>
   </section>
@@ -154,162 +152,163 @@ const individualPartidosB = [
   <section class="modalidad">
     <h2>🏃‍♀️ Individual Femenino</h2>
 
-    <h3>Fase de grupos</h3>
-    <p class="formato-nota">1 set a 21 · Clasifican 1ª y 2ª de cada grupo</p>
-
-    <div class="grupos-grid">
-      <div class="grupo-box">
-        <h4>Grupo A</h4>
-        <div class="participantes-mini">
-          {individualGrupoA.map(p => (
-            <div class="participante-mini">
-              <span class="letra">{p.letra}</span>
-              <span>{p.nombre}</span>
-            </div>
-          ))}
+    <h3>Participantes</h3>
+    <div class="participantes-grid">
+      {individualParticipantes.map(p => (
+        <div class="participante-tag">
+          <span class="letra">{p.letra}</span>
+          <span>{p.nombre}</span>
         </div>
-        <div class="partidos-lista">
-          {individualPartidosA.map(p => (
-            <div class="partido-card compact" data-match>
-              <div class="partido-equipo" data-team="1">
-                <span class="equipo-letra">{p.local}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
-              </div>
-              <div class="partido-equipo" data-team="2">
-                <span class="equipo-letra">{p.visitante}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="grupo-box">
-        <h4>Grupo B</h4>
-        <div class="participantes-mini">
-          {individualGrupoB.map(p => (
-            <div class="participante-mini">
-              <span class="letra">{p.letra}</span>
-              <span>{p.nombre}</span>
-            </div>
-          ))}
-        </div>
-        <div class="partidos-lista">
-          {individualPartidosB.map(p => (
-            <div class="partido-card compact" data-match>
-              <div class="partido-equipo" data-team="1">
-                <span class="equipo-letra">{p.local}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
-              </div>
-              <div class="partido-equipo" data-team="2">
-                <span class="equipo-letra">{p.visitante}</span>
-                <div class="sets-ganados"><span data-sets-won>-</span></div>
-                <div class="puntos-set">
-                  <input type="text" maxlength="2" data-set="1" />
-                  <input type="text" maxlength="2" data-set="2" />
-                  <input type="text" maxlength="2" class="third" data-set="3" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
 
-    <h3>Eliminatorias</h3>
-    <p class="formato-nota">2 sets a 21 · Tercer set a 15 si hay empate</p>
-    <div class="bracket">
-      <div class="bracket-round">
-        <div class="round-label">Semifinales</div>
-        <div class="match" data-match>
-          <div class="match-team" data-team="1">
-            <span class="team-name">1ª Grupo A</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
+    <h3>Cuadro de Eliminatorias</h3>
+    <div class="bracket-container">
+      <div class="bracket">
+        <div class="bracket-round">
+          <div class="round-label">Primera Ronda</div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">D</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">E</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
             </div>
           </div>
-          <div class="match-team" data-team="2">
-            <span class="team-name">2ª Grupo B</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
+          <div class="bye-box">
+            <span>A, B, C pasan directas a semifinales</span>
+          </div>
+        </div>
+
+        <div class="bracket-connector single">
+          <div class="connector-line middle"></div>
+        </div>
+
+        <div class="bracket-round">
+          <div class="round-label">Semifinales</div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">A</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">Gan. D/E</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+          </div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">B</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">C</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
             </div>
           </div>
         </div>
-        <div class="match" data-match>
-          <div class="match-team" data-team="1">
-            <span class="team-name">1ª Grupo B</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
+
+        <div class="bracket-connector">
+          <div class="connector-line top"></div>
+          <div class="connector-line bottom"></div>
+          <div class="connector-merge"></div>
+        </div>
+
+        <div class="bracket-round">
+          <div class="round-label">Final</div>
+          <div class="match final-match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">Gan. SF1</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
             </div>
-          </div>
-          <div class="match-team" data-team="2">
-            <span class="team-name">2ª Grupo A</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
+            <div class="match-team" data-team="2">
+              <span class="team-name">Gan. SF2</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="bracket-connector">
-        <div class="connector-line top"></div>
-        <div class="connector-line bottom"></div>
-        <div class="connector-merge"></div>
-      </div>
-
-      <div class="bracket-round">
-        <div class="round-label">Final</div>
-        <div class="match final-match" data-match>
-          <div class="match-team" data-team="1">
-            <span class="team-name">Ganadora SF1</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
-            </div>
-          </div>
-          <div class="match-team" data-team="2">
-            <span class="team-name">Ganadora SF2</span>
-            <div class="score-total"><span data-sets-won>-</span></div>
-            <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" />
-            </div>
-          </div>
+        <div class="bracket-round trophy">
+          <div class="trophy-icon">🥇</div>
         </div>
       </div>
 
-      <div class="bracket-round trophy">
-        <div class="trophy-icon">🏆</div>
+      <div class="puestos-inferiores">
+        <div class="tercer-puesto">
+          <div class="round-label">3er - 4º Puesto</div>
+          <div class="match" data-match>
+            <div class="match-team" data-team="1">
+              <span class="team-name">Perd. SF1</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+            <div class="match-team" data-team="2">
+              <span class="team-name">Perd. SF2</span>
+              <div class="score-total"><span data-sets-won>-</span></div>
+              <div class="score-boxes">
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
+              </div>
+            </div>
+          </div>
+          <div class="trophy-icon small">🥉</div>
+        </div>
+
+        <div class="quinto-puesto">
+          <div class="round-label">5º Puesto</div>
+          <div class="match bye-match">
+            <div class="match-team">
+              <span class="team-name">Perdedora D vs E</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -372,17 +371,9 @@ const individualPartidosB = [
     color: #1a1a1a;
     font-size: 0.85rem;
     font-weight: 600;
-    margin: 30px 0 8px;
+    margin: 30px 0 12px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
-  }
-
-  h4 {
-    color: #666;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    text-transform: uppercase;
   }
 
   .info {
@@ -402,12 +393,6 @@ const individualPartidosB = [
   .modalidad {
     padding: 25px 0;
     border-bottom: 1px solid #eee;
-  }
-
-  .formato-nota {
-    color: #888;
-    font-size: 0.8rem;
-    margin-bottom: 15px;
   }
 
   /* Participantes */
@@ -439,220 +424,15 @@ const individualPartidosB = [
     font-size: 0.8rem;
   }
 
-  .letra-mini {
-    background: #f0f0f0;
-    color: #888;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-weight: 600;
-    font-size: 0.7rem;
-    margin-right: 4px;
+  /* Bracket */
+  .bracket-container {
+    margin-top: 15px;
   }
 
-  /* Partidos de grupos */
-  .partidos-grupos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 25px;
-  }
-
-  .ronda-partidos {
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 15px;
-  }
-
-  .ronda-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: #888;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  .partido-card {
-    background: #fafafa;
-    border-radius: 6px;
-    padding: 10px 12px;
-    margin-bottom: 8px;
-  }
-
-  .partido-card:last-child {
-    margin-bottom: 0;
-  }
-
-  .partido-card.compact {
-    padding: 8px 10px;
-  }
-
-  .partido-equipo {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-  }
-
-  .partido-equipo:first-child {
-    border-bottom: 1px solid #eee;
-  }
-
-  .equipo-letra {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #333;
-    width: 24px;
-  }
-
-  .puntos-set {
-    display: flex;
-    gap: 4px;
-  }
-
-  .puntos-set input {
-    width: 40px;
-    height: 32px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #fff;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-  }
-
-  .puntos-set input:focus {
-    outline: none;
-    border-color: #999;
-  }
-
-  .puntos-set input.third {
-    border-style: dashed;
-    opacity: 0.6;
-  }
-
-  .sets-ganados {
-    margin-right: auto;
-    margin-left: 10px;
-  }
-
-  .sets-ganados span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #f9f9f9;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-  }
-
-  /* Clasificación */
-  .clasificacion-box {
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 15px;
-    max-width: 450px;
-  }
-
-  .clasificacion-title {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #888;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .tabla-clasificacion {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-  }
-
-  .tabla-clasificacion th {
-    text-align: left;
-    padding: 6px 8px;
-    border-bottom: 2px solid #eee;
-    font-weight: 600;
-    color: #888;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-  }
-
-  .tabla-clasificacion td {
-    padding: 8px;
-    border-bottom: 1px solid #f5f5f5;
-  }
-
-  .tabla-clasificacion .pos {
-    width: 25px;
-    font-weight: 600;
-    color: #888;
-  }
-
-  .tabla-clasificacion .nombre {
-    font-weight: 500;
-  }
-
-  .tabla-clasificacion .pts {
-    font-weight: 600;
-  }
-
-  .tabla-clasificacion th:not(:first-child):not(:nth-child(2)),
-  .tabla-clasificacion td:not(:first-child):not(:nth-child(2)) {
-    text-align: center;
-    width: 35px;
-  }
-
-  /* Grupos individual */
-  .grupos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-
-  .grupo-box {
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
-    padding: 15px;
-  }
-
-  .participantes-mini {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 15px;
-  }
-
-  .participante-mini {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.85rem;
-  }
-
-  .participante-mini .letra {
-    width: 20px;
-    height: 20px;
-    font-size: 0.75rem;
-  }
-
-  .partidos-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  /* Bracket de eliminatorias */
   .bracket {
     display: flex;
     align-items: center;
     gap: 0;
-    margin-top: 20px;
     overflow-x: auto;
     padding: 10px 0;
   }
@@ -669,7 +449,7 @@ const individualPartidosB = [
     text-transform: uppercase;
     color: #888;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     text-align: center;
   }
 
@@ -677,7 +457,7 @@ const individualPartidosB = [
     border: 1px solid #e0e0e0;
     border-radius: 6px;
     overflow: hidden;
-    min-width: 240px;
+    min-width: 220px;
     background: #fff;
   }
 
@@ -694,8 +474,27 @@ const individualPartidosB = [
   }
 
   .team-name {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 500;
+    min-width: 70px;
+  }
+
+  .score-total {
+    margin-right: 8px;
+  }
+
+  .score-total span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
   }
 
   .score-boxes {
@@ -725,24 +524,6 @@ const individualPartidosB = [
     opacity: 0.6;
   }
 
-  .score-total {
-    margin-right: 8px;
-  }
-
-  .score-total span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: #f9f9f9;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #333;
-  }
-
   .final-match {
     border: 2px solid #ddd;
   }
@@ -751,7 +532,7 @@ const individualPartidosB = [
     background: #fafafa;
   }
 
-  /* Conectores del bracket */
+  /* Conectores */
   .bracket-connector {
     display: flex;
     flex-direction: column;
@@ -760,6 +541,10 @@ const individualPartidosB = [
     width: 40px;
     height: 140px;
     position: relative;
+  }
+
+  .bracket-connector.single {
+    height: 60px;
   }
 
   .connector-line {
@@ -776,6 +561,10 @@ const individualPartidosB = [
 
   .connector-line.bottom {
     bottom: 30px;
+  }
+
+  .connector-line.middle {
+    top: 50%;
   }
 
   .connector-merge {
@@ -804,6 +593,45 @@ const individualPartidosB = [
     font-size: 2rem;
   }
 
+  .trophy-icon.small {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+
+  /* Tercer puesto y puestos inferiores */
+  .tercer-puesto,
+  .quinto-puesto {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #ddd;
+  }
+
+  .puestos-inferiores {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .bye-box {
+    padding: 12px 15px;
+    background: #f9f9f9;
+    border: 1px dashed #ddd;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .bye-match {
+    background: #f9f9f9;
+  }
+
+  .bye-match .match-team {
+    justify-content: center;
+    padding: 12px;
+  }
+
   .sin-participacion {
     padding: 20px 0;
     color: #999;
@@ -811,16 +639,6 @@ const individualPartidosB = [
   }
 
   @media (max-width: 800px) {
-    .partidos-grupos {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .grupos-grid {
-      grid-template-columns: 1fr;
-    }
-
     .bracket {
       flex-direction: column;
       align-items: flex-start;
@@ -837,12 +655,16 @@ const individualPartidosB = [
 
     .match {
       width: 100%;
-      max-width: 280px;
+      max-width: 300px;
     }
 
     .trophy {
       padding-left: 0;
       align-self: center;
+    }
+
+    .puestos-inferiores {
+      flex-direction: column;
     }
   }
 </style>
