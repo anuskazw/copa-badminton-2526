@@ -1,0 +1,103 @@
+---
+interface Props {
+  fecha: string;
+  hora: string;
+  fase: string;
+  equipoLocal: string;
+  equipoVisitante: string;
+  pista?: string;
+}
+
+const { fecha, hora, fase, equipoLocal, equipoVisitante, pista } = Astro.props;
+---
+
+<div class="partido">
+  <div class="partido-header">
+    <span class="fase">{fase}</span>
+    <span class="fecha">{fecha} • {hora}</span>
+  </div>
+  <div class="partido-equipos">
+    <div class="equipo">{equipoLocal}</div>
+    <div class="vs">VS</div>
+    <div class="equipo">{equipoVisitante}</div>
+  </div>
+  {pista && <div class="pista">Pista {pista}</div>}
+</div>
+
+<style>
+  .partido {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .partido:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  }
+
+  .partido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+  }
+
+  .fase {
+    background: #667eea;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .fecha {
+    color: #666;
+    font-weight: 500;
+  }
+
+  .partido-equipos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .equipo {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .vs {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .pista {
+    margin-top: 10px;
+    text-align: center;
+    color: #764ba2;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .partido-equipos {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .equipo {
+      font-size: 1rem;
+    }
+  }
+</style>
