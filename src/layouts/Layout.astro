@@ -21,40 +21,38 @@ const { title } = Astro.props;
 
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: #fff;
       min-height: 100vh;
-      padding: 20px;
+      color: #1a1a1a;
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 700px;
       margin: 0 auto;
+      padding: 40px 20px;
     }
 
     header {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding-bottom: 30px;
       margin-bottom: 30px;
       text-align: center;
+      border-bottom: 1px solid #eee;
     }
 
-    h1 {
-      color: #667eea;
-      margin-bottom: 10px;
+    header h1 {
+      color: #1a1a1a;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 6px;
     }
 
     .subtitle {
-      color: #666;
-      font-size: 1.1rem;
+      color: #888;
+      font-size: 0.95rem;
     }
 
     main {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 0;
     }
   </style>
 </head>

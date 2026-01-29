@@ -1,13 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Partido from '../components/Partido.astro';
 
 // Participantes DOBLES FEMENINO
 const parejasFemenino = [
-  { pareja: 'Margarita Arizaga y Dora Yánez' },
-  { pareja: 'Paula Bak y Mónica Castrillejo' },
-  { pareja: 'Nadia Marcos y María Jesús Serna' },
-  { pareja: 'Mónica Rodríguez y Ana María Caballero' }
+  'Margarita Arizaga y Dora Yánez',
+  'Paula Bak y Mónica Castrillejo',
+  'Nadia Marcos y María Jesús Serna',
+  'Mónica Rodríguez y Ana María Caballero'
 ];
 
 // Participantes INDIVIDUAL FEMENINO
@@ -19,191 +18,117 @@ const individualFemenino = [
   'Jamie Gissel Valencia'
 ];
 
-// Calendario de partidos (ejemplo - actualizar con horarios reales)
-const partidos = [
-  // DOBLES FEMENINO - Ronda 1
-  {
-    fecha: 'Por determinar',
-    hora: '10:00',
-    fase: 'Dobles Femenino',
-    equipoLocal: 'Arizaga/Yánez',
-    equipoVisitante: 'Bak/Castrillejo',
-    pista: '1'
-  },
-  {
-    fecha: 'Por determinar',
-    hora: '11:30',
-    fase: 'Dobles Femenino',
-    equipoLocal: 'Marcos/Serna',
-    equipoVisitante: 'Rodríguez/Caballero',
-    pista: '1'
-  },
-  // INDIVIDUAL FEMENINO - Ronda 1
-  {
-    fecha: 'Por determinar',
-    hora: '13:00',
-    fase: 'Individual Femenino',
-    equipoLocal: 'Mónica Rodríguez',
-    equipoVisitante: 'Paula Bak',
-    pista: '1'
-  },
-  {
-    fecha: 'Por determinar',
-    hora: '14:30',
-    fase: 'Individual Femenino',
-    equipoLocal: 'Margarita Arizaga',
-    equipoVisitante: 'Mónica Castrillejo',
-    pista: '1'
-  }
-];
+// Categorías sin participación
+const sinParticipacion = ['Dobles Mixto', 'Dobles Masculino', 'Individual Masculino'];
 ---
 
 <Layout title="Copa de Bádminton FMDS 2025/2026">
-  <h1>🏸 COPA DE BÁDMINTON FMDS</h1>
-  <h2>TEMPORADA 2025/2026</h2>
-  
   <div class="info">
-    <p><strong>📍 Horario de pistas:</strong> 10:00 - 20:00</p>
-    <p><strong>⚡ Formato:</strong> 3 sets (mejor de 3)</p>
+    <p><strong>📍 Pistas disponibles:</strong> 10:00 - 20:00</p>
+    <p><strong>⚡ Formato:</strong> Mejor de 3 sets</p>
   </div>
 
-  <!-- Categorías con Participación -->
   <section class="categoria activa">
-    <h3>✅ DOBLES FEMENINO</h3>
+    <h3>👥 DOBLES FEMENINO</h3>
     <div class="participantes">
-      {parejasFemenino.map(p => (
-        <div class="participante">👥 {p.pareja}</div>
+      {parejasFemenino.map(pareja => (
+        <div class="participante">{pareja}</div>
       ))}
     </div>
   </section>
 
   <section class="categoria activa">
-    <h3>✅ INDIVIDUAL FEMENINO</h3>
+    <h3>🏃‍♀️ INDIVIDUAL FEMENINO</h3>
     <div class="participantes">
       {individualFemenino.map(nombre => (
-        <div class="participante">🏃‍♀️ {nombre}</div>
+        <div class="participante">{nombre}</div>
       ))}
     </div>
   </section>
 
-  <!-- Categorías sin Participación -->
   <section class="categoria inactiva">
-    <h3>❌ DOBLES MIXTO</h3>
-    <p class="sin-participacion">No hay participación</p>
+    <h3>Sin participación</h3>
+    <div class="categorias-inactivas">
+      {sinParticipacion.map(cat => (
+        <span class="badge">{cat}</span>
+      ))}
+    </div>
   </section>
-
-  <section class="categoria inactiva">
-    <h3>❌ DOBLES MASCULINO</h3>
-    <p class="sin-participacion">No hay participación</p>
-  </section>
-
-  <section class="categoria inactiva">
-    <h3>❌ INDIVIDUAL MASCULINO</h3>
-    <p class="sin-participacion">No hay participación</p>
-  </section>
-
-  <!-- Calendario de Partidos -->
-  <h2 style="margin-top: 40px;">📅 Calendario de Partidos</h2>
-  <div class="partidos-container">
-    {partidos.map(partido => (
-      <Partido 
-        fecha={partido.fecha}
-        hora={partido.hora}
-        fase={partido.fase}
-        equipoLocal={partido.equipoLocal}
-        equipoVisitante={partido.equipoVisitante}
-        pista={partido.pista}
-      />
-    ))}
-  </div>
 </Layout>
 
 <style>
-  h1 {
-    color: #667eea;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  h2 {
-    color: #667eea;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    text-align: center;
-  }
-
   h3 {
-    color: #333;
+    color: #1a1a1a;
     margin-bottom: 15px;
-    font-size: 1.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .info {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    border: 1px solid #e5e5e5;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-bottom: 30px;
     text-align: center;
   }
 
   .info p {
-    margin: 8px 0;
-    font-size: 1.1rem;
+    margin: 6px 0;
+    font-size: 0.95rem;
+    color: #444;
   }
 
   .categoria {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 25px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
   }
 
-  .categoria.activa {
-    border-left: 5px solid #28a745;
+  .categoria:last-child {
+    border-bottom: none;
   }
 
   .categoria.inactiva {
-    border-left: 5px solid #dc3545;
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   .participantes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+    gap: 12px;
     margin-top: 15px;
   }
 
   .participante {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-weight: 500;
+    padding: 12px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
     color: #333;
+    font-size: 0.95rem;
   }
 
-  .sin-participacion {
-    color: #666;
-    font-style: italic;
-    margin: 10px 0 0 0;
+  .categorias-inactivas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
   }
 
-  .partidos-container {
-    margin-top: 20px;
+  .badge {
+    color: #888;
+    padding: 4px 0;
+    font-size: 0.9rem;
+  }
+
+  .badge:not(:last-child)::after {
+    content: "·";
+    margin-left: 8px;
+    color: #ccc;
   }
 
   @media (max-width: 768px) {
-    h1 {
-      font-size: 1.8rem;
-    }
-    
-    h2 {
-      font-size: 1.4rem;
-    }
-
     .participantes {
       grid-template-columns: 1fr;
     }
