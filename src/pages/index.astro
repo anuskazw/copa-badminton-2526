@@ -27,7 +27,7 @@ const individualParticipantes = [
 
   <!-- DOBLES FEMENINO -->
   <section class="modalidad modalidad-dobles">
-    <h2>👥 Dobles Femenino</h2>
+    <h2>Dobles Femenino</h2>
 
     <h3>Participantes</h3>
     <div class="participantes-grid">
@@ -146,7 +146,7 @@ const individualParticipantes = [
 
   <!-- INDIVIDUAL FEMENINO -->
   <section class="modalidad modalidad-individual">
-    <h2>🏃‍♀️ Individual Femenino</h2>
+    <h2>Individual Femenino</h2>
 
     <h3>Participantes</h3>
     <div class="participantes-grid">
@@ -361,12 +361,15 @@ const individualParticipantes = [
 
 <style>
   h2 {
-    color: #1a1a1a;
-    font-size: 1.1rem;
+    color: #fff;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin: 0 0 25px 0;
+    padding: 12px 20px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border-radius: 8px;
+    background: #fd3414;
   }
 
   h3 {
@@ -393,8 +396,13 @@ const individualParticipantes = [
   }
 
   .modalidad {
-    padding: 25px 0;
-    border-bottom: 1px solid #eee;
+    padding: 30px 0 40px 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5e5e5;
+  }
+
+  .modalidad:last-of-type {
+    border-bottom: none;
   }
 
   /* Participantes */
