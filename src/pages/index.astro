@@ -116,9 +116,6 @@ const individualParticipantes = [
           </div>
         </div>
 
-        <div class="bracket-round trophy">
-          <div class="trophy-icon">🥇</div>
-        </div>
       </div>
 
       <div class="tercer-puesto">
@@ -143,7 +140,6 @@ const individualParticipantes = [
             </div>
           </div>
         </div>
-        <div class="trophy-icon small">🥉</div>
       </div>
     </div>
   </section>
@@ -488,6 +484,45 @@ const individualParticipantes = [
 
   .modalidad-individual .match {
     width: 350px;
+  }
+
+  /* Dobles Femenino - alineación */
+  .modalidad-dobles .bracket {
+    align-items: flex-start;
+  }
+
+  .modalidad-dobles .bracket-round {
+    justify-content: flex-start;
+    align-self: flex-start;
+  }
+
+  .modalidad-dobles .round-label {
+    position: relative;
+    top: 0;
+  }
+
+  .modalidad-dobles .bracket-connector {
+    height: 290px;
+    margin-top: 28px;
+    align-self: flex-start;
+  }
+
+  .modalidad-dobles .bracket-connector .connector-line.top {
+    top: 81px;
+  }
+
+  .modalidad-dobles .bracket-connector .connector-line.bottom {
+    top: 226px;
+    bottom: auto;
+  }
+
+  .modalidad-dobles .bracket-connector .connector-merge {
+    top: 81px;
+    height: 145px;
+  }
+
+  .modalidad-dobles .bracket-round:nth-child(3) .match {
+    margin-top: 72px;
   }
 
   .modalidad-individual .bracket {
