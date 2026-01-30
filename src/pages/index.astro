@@ -151,6 +151,28 @@ const individualParticipantes = [
         </div>
       </div>
     </div>
+
+    <h3>Clasificación Final</h3>
+    <table class="clasificacion" data-clasificacion="dobles">
+      <thead>
+        <tr>
+          <th>Pos.</th>
+          <th>Participante</th>
+          <th>PJ</th>
+          <th>PG</th>
+          <th>PP</th>
+          <th>Sets +</th>
+          <th>Sets -</th>
+          <th>Diff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>2º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>3º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>4º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- INDIVIDUAL FEMENINO -->
@@ -321,6 +343,29 @@ const individualParticipantes = [
         </div>
       </div>
     </div>
+
+    <h3>Clasificación Final</h3>
+    <table class="clasificacion" data-clasificacion="individual">
+      <thead>
+        <tr>
+          <th>Pos.</th>
+          <th>Participante</th>
+          <th>PJ</th>
+          <th>PG</th>
+          <th>PP</th>
+          <th>Sets +</th>
+          <th>Sets -</th>
+          <th>Diff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>2º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>3º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>4º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>5º</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
   </section>
 
   <section class="sin-participacion">
@@ -384,6 +429,165 @@ const individualParticipantes = [
       window.print();
       document.body.removeAttribute('data-print-section');
     });
+  });
+
+  // Calcular clasificación
+  function getMatchResult(match) {
+    const team1 = match.querySelector('[data-team="1"]');
+    const team2 = match.querySelector('[data-team="2"]');
+    if (!team1 || !team2) return null;
+
+    let sets1 = 0, sets2 = 0;
+    let points1 = 0, points2 = 0;
+
+    for (let i = 1; i <= 3; i++) {
+      const input1 = team1.querySelector(`[data-set="${i}"]`);
+      const input2 = team2.querySelector(`[data-set="${i}"]`);
+      if (!input1 || !input2) continue;
+
+      const score1 = parseInt(input1.value) || 0;
+      const score2 = parseInt(input2.value) || 0;
+
+      points1 += score1;
+      points2 += score2;
+
+      if (score1 > 0 || score2 > 0) {
+        if (score1 > score2) sets1++;
+        else if (score2 > score1) sets2++;
+      }
+    }
+
+    const name1 = team1.querySelector('.team-name')?.textContent || '';
+    const name2 = team2.querySelector('.team-name')?.textContent || '';
+
+    return {
+      team1: { name: name1, sets: sets1, points: points1 },
+      team2: { name: name2, sets: sets2, points: points2 },
+      winner: sets1 > sets2 ? 1 : sets2 > sets1 ? 2 : 0,
+      played: sets1 > 0 || sets2 > 0
+    };
+  }
+
+  function updateClasificacion() {
+    // DOBLES FEMENINO
+    const doblesSection = document.getElementById('dobles-femenino');
+    const doblesMatches = doblesSection.querySelectorAll('[data-match]');
+    const doblesTable = doblesSection.querySelector('[data-clasificacion="dobles"] tbody');
+
+    const doblesStats = {};
+    const initStats = (name) => {
+      if (name && !doblesStats[name] && !name.includes('Gan.') && !name.includes('Perd.')) {
+        doblesStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0 };
+      }
+    };
+
+    doblesMatches.forEach(match => {
+      const result = getMatchResult(match);
+      if (!result || !result.played) return;
+
+      const { team1, team2, winner } = result;
+      initStats(team1.name);
+      initStats(team2.name);
+
+      if (doblesStats[team1.name]) {
+        doblesStats[team1.name].pj++;
+        doblesStats[team1.name].setsF += team1.sets;
+        doblesStats[team1.name].setsC += team2.sets;
+        if (winner === 1) doblesStats[team1.name].pg++;
+        else if (winner === 2) doblesStats[team1.name].pp++;
+      }
+
+      if (doblesStats[team2.name]) {
+        doblesStats[team2.name].pj++;
+        doblesStats[team2.name].setsF += team2.sets;
+        doblesStats[team2.name].setsC += team1.sets;
+        if (winner === 2) doblesStats[team2.name].pg++;
+        else if (winner === 1) doblesStats[team2.name].pp++;
+      }
+    });
+
+    const doblesRanking = Object.entries(doblesStats)
+      .map(([name, stats]) => ({ name, ...stats, diff: stats.setsF - stats.setsC }))
+      .sort((a, b) => b.pg - a.pg || b.diff - a.diff || b.setsF - a.setsF);
+
+    const doblesRows = doblesTable.querySelectorAll('tr');
+    doblesRows.forEach((row, i) => {
+      const cells = row.querySelectorAll('td');
+      if (doblesRanking[i]) {
+        const p = doblesRanking[i];
+        cells[1].textContent = p.name;
+        cells[2].textContent = p.pj;
+        cells[3].textContent = p.pg;
+        cells[4].textContent = p.pp;
+        cells[5].textContent = p.setsF;
+        cells[6].textContent = p.setsC;
+        cells[7].textContent = p.diff > 0 ? `+${p.diff}` : p.diff;
+      } else {
+        for (let j = 1; j < cells.length; j++) cells[j].textContent = '-';
+      }
+    });
+
+    // INDIVIDUAL FEMENINO
+    const individualSection = document.getElementById('individual-femenino');
+    const individualMatches = individualSection.querySelectorAll('[data-match]');
+    const individualTable = individualSection.querySelector('[data-clasificacion="individual"] tbody');
+
+    const individualStats = {};
+    const initIndStats = (name) => {
+      if (name && !individualStats[name] && !name.includes('Gan.') && !name.includes('Perd.')) {
+        individualStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0 };
+      }
+    };
+
+    individualMatches.forEach(match => {
+      const result = getMatchResult(match);
+      if (!result || !result.played) return;
+
+      const { team1, team2, winner } = result;
+      initIndStats(team1.name);
+      initIndStats(team2.name);
+
+      if (individualStats[team1.name]) {
+        individualStats[team1.name].pj++;
+        individualStats[team1.name].setsF += team1.sets;
+        individualStats[team1.name].setsC += team2.sets;
+        if (winner === 1) individualStats[team1.name].pg++;
+        else if (winner === 2) individualStats[team1.name].pp++;
+      }
+
+      if (individualStats[team2.name]) {
+        individualStats[team2.name].pj++;
+        individualStats[team2.name].setsF += team2.sets;
+        individualStats[team2.name].setsC += team1.sets;
+        if (winner === 2) individualStats[team2.name].pg++;
+        else if (winner === 1) individualStats[team2.name].pp++;
+      }
+    });
+
+    const individualRanking = Object.entries(individualStats)
+      .map(([name, stats]) => ({ name, ...stats, diff: stats.setsF - stats.setsC }))
+      .sort((a, b) => b.pg - a.pg || b.diff - a.diff || b.setsF - a.setsF);
+
+    const individualRows = individualTable.querySelectorAll('tr');
+    individualRows.forEach((row, i) => {
+      const cells = row.querySelectorAll('td');
+      if (individualRanking[i]) {
+        const p = individualRanking[i];
+        cells[1].textContent = p.name;
+        cells[2].textContent = p.pj;
+        cells[3].textContent = p.pg;
+        cells[4].textContent = p.pp;
+        cells[5].textContent = p.setsF;
+        cells[6].textContent = p.setsC;
+        cells[7].textContent = p.diff > 0 ? `+${p.diff}` : p.diff;
+      } else {
+        for (let j = 1; j < cells.length; j++) cells[j].textContent = '-';
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-set]').forEach(input => {
+    input.addEventListener('input', updateClasificacion);
   });
 </script>
 
@@ -851,6 +1055,47 @@ const individualParticipantes = [
   .bye-match .match-team {
     justify-content: center;
     padding: 12px;
+  }
+
+  /* Tabla de clasificación */
+  .clasificacion {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 15px;
+  }
+
+  .clasificacion th,
+  .clasificacion td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .clasificacion th {
+    background: #f5f5f5;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  .clasificacion td:first-child {
+    font-weight: 600;
+    color: #fd3414;
+  }
+
+  .clasificacion tbody tr:hover {
+    background: #fafafa;
+  }
+
+  .clasificacion td:nth-child(n+3) {
+    text-align: center;
+  }
+
+  .clasificacion th:nth-child(n+3) {
+    text-align: center;
   }
 
   .sin-participacion {
