@@ -744,12 +744,11 @@ const individualParticipantes = [
       isInputFocused = true;
     });
 
-    input.addEventListener('blur', async () => {
+    input.addEventListener('blur', () => {
       isInputFocused = false;
       if (hasChanges) {
-        await saveData();
+        saveData();
         hasChanges = false;
-        loadData();
       }
     });
 
