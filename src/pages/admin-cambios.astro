@@ -43,7 +43,7 @@ const individualParticipantes = [
       {doblesParticipantes.map(p => (
         <div class="participante-tag">
           <span class="letra">{p.letra}</span>
-          <input type="text" class="participante-input" data-participante={`dobles-${p.letra}`} value={p.nombre} readonly tabindex="-1" />
+          <input type="text" class="participante-input" data-participante={`dobles-${p.letra}`} value={p.nombre} />
         </div>
       ))}
     </div>
@@ -58,18 +58,18 @@ const individualParticipantes = [
               <span class="team-name" data-show="dobles-A">{doblesParticipantes[0].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name" data-show="dobles-D">{doblesParticipantes[3].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -78,18 +78,18 @@ const individualParticipantes = [
               <span class="team-name" data-show="dobles-B">{doblesParticipantes[1].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name" data-show="dobles-C">{doblesParticipantes[2].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -108,18 +108,18 @@ const individualParticipantes = [
               <span class="team-name">Gan. SF1</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name">Gan. SF2</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -134,18 +134,18 @@ const individualParticipantes = [
             <span class="team-name">Perd. SF1</span>
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
           <div class="match-team" data-team="2">
             <span class="team-name">Perd. SF2</span>
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
-              <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-              <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-              <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+              <input type="text" class="score-input" maxlength="2" data-set="1" />
+              <input type="text" class="score-input" maxlength="2" data-set="2" />
+              <input type="text" class="score-input third" maxlength="2" data-set="3" />
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@ const individualParticipantes = [
       {individualParticipantes.map(p => (
         <div class="participante-tag">
           <span class="letra">{p.letra}</span>
-          <input type="text" class="participante-input" data-participante={`individual-${p.letra}`} value={p.nombre} readonly tabindex="-1" />
+          <input type="text" class="participante-input" data-participante={`individual-${p.letra}`} value={p.nombre} />
         </div>
       ))}
     </div>
@@ -208,18 +208,18 @@ const individualParticipantes = [
               <span class="team-name" data-show="individual-D">{individualParticipantes[3].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name" data-show="individual-E">{individualParticipantes[4].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -239,18 +239,18 @@ const individualParticipantes = [
               <span class="team-name" data-show="individual-A">{individualParticipantes[0].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name">Gan. D/E</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -259,18 +259,18 @@ const individualParticipantes = [
               <span class="team-name" data-show="individual-B">{individualParticipantes[1].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name" data-show="individual-C">{individualParticipantes[2].nombre}</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -289,18 +289,18 @@ const individualParticipantes = [
               <span class="team-name">Gan. SF1</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name">Gan. SF2</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -316,18 +316,18 @@ const individualParticipantes = [
               <span class="team-name">Perd. SF1</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
             <div class="match-team" data-team="2">
               <span class="team-name">Perd. SF2</span>
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
-                <input type="text" class="score-input" maxlength="2" data-set="1" readonly tabindex="-1" />
-                <input type="text" class="score-input" maxlength="2" data-set="2" readonly tabindex="-1" />
-                <input type="text" class="score-input third" maxlength="2" data-set="3" readonly tabindex="-1" />
+                <input type="text" class="score-input" maxlength="2" data-set="1" />
+                <input type="text" class="score-input" maxlength="2" data-set="2" />
+                <input type="text" class="score-input third" maxlength="2" data-set="3" />
               </div>
             </div>
           </div>
@@ -407,7 +407,29 @@ const individualParticipantes = [
     });
   }
 
-  // Modo solo lectura - no hay event listeners de entrada
+  document.querySelectorAll('[data-set]').forEach(input => {
+    input.addEventListener('input', calculateSetsWon);
+  });
+
+  // Sincronizar nombres de participantes
+  document.querySelectorAll('[data-participante]').forEach(input => {
+    input.addEventListener('input', (e) => {
+      const key = e.target.dataset.participante;
+      document.querySelectorAll(`[data-show="${key}"]`).forEach(span => {
+        span.textContent = e.target.value;
+      });
+    });
+  });
+
+  // Imprimir sección individual en formato horizontal
+  document.querySelectorAll('.btn-print-section').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const sectionId = e.currentTarget.dataset.section;
+      document.body.setAttribute('data-print-section', sectionId);
+      window.print();
+      document.body.removeAttribute('data-print-section');
+    });
+  });
 
   // Calcular clasificación
   function getMatchResult(match) {
@@ -564,8 +586,65 @@ const individualParticipantes = [
     });
   }
 
-  // === SINCRONIZACIÓN CON API (SOLO LECTURA) ===
+  document.querySelectorAll('[data-set]').forEach(input => {
+    input.addEventListener('input', updateClasificacion);
+  });
+
+  // === SINCRONIZACIÓN CON API ===
   const API_URL = '/copa-badminton-2526/api/resultados';
+  let isSaving = false;
+
+  // Recopilar todos los datos del formulario
+  function collectData() {
+    const data = {
+      dobles: {
+        participantes: {},
+        partidos: []
+      },
+      individual: {
+        participantes: {},
+        partidos: []
+      }
+    };
+
+    // Participantes dobles
+    document.querySelectorAll('#dobles-femenino [data-participante]').forEach(input => {
+      const key = input.dataset.participante.replace('dobles-', '');
+      data.dobles.participantes[key] = input.value;
+    });
+
+    // Participantes individual
+    document.querySelectorAll('#individual-femenino [data-participante]').forEach(input => {
+      const key = input.dataset.participante.replace('individual-', '');
+      data.individual.participantes[key] = input.value;
+    });
+
+    // Partidos dobles
+    document.querySelectorAll('#dobles-femenino [data-match]').forEach(match => {
+      const partido = { equipo1: [], equipo2: [] };
+      match.querySelectorAll('[data-team="1"] [data-set]').forEach(input => {
+        partido.equipo1.push(input.value);
+      });
+      match.querySelectorAll('[data-team="2"] [data-set]').forEach(input => {
+        partido.equipo2.push(input.value);
+      });
+      data.dobles.partidos.push(partido);
+    });
+
+    // Partidos individual
+    document.querySelectorAll('#individual-femenino [data-match]').forEach(match => {
+      const partido = { equipo1: [], equipo2: [] };
+      match.querySelectorAll('[data-team="1"] [data-set]').forEach(input => {
+        partido.equipo1.push(input.value);
+      });
+      match.querySelectorAll('[data-team="2"] [data-set]').forEach(input => {
+        partido.equipo2.push(input.value);
+      });
+      data.individual.partidos.push(partido);
+    });
+
+    return data;
+  }
 
   // Aplicar datos al formulario
   function applyData(data) {
@@ -638,10 +717,39 @@ const individualParticipantes = [
     }
   }
 
+  // Guardar datos en la API
+  async function saveData() {
+    if (isSaving) return;
+    isSaving = true;
+    try {
+      const data = collectData();
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) {
+      console.log('Error guardando datos:', e);
+    }
+    isSaving = false;
+  }
+
+  // Debounce para guardar
+  let saveTimeout;
+  function debouncedSave() {
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(saveData, 500);
+  }
+
+  // Escuchar cambios en todos los inputs
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', debouncedSave);
+  });
+
   // Cargar datos al iniciar
   loadData();
 
-  // Actualizar cada 5 segundos para ver cambios en tiempo real
+  // Actualizar cada 5 segundos para ver cambios de otros dispositivos
   setInterval(loadData, 5000);
 </script>
 
@@ -662,23 +770,21 @@ const individualParticipantes = [
   }
 
   .btn-print-section {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
   }
 
-  /* Inputs readonly que se ven igual que normales */
-  input[readonly] {
-    cursor: default;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  input[readonly]:focus {
-    outline: none;
-    border-color: #ddd;
-  }
-
-  .participante-input[readonly]:focus {
-    border-bottom-color: #e5e5e5;
+  .btn-print-section:hover {
+    background: rgba(255, 255, 255, 0.3);
   }
 
   @media print {
