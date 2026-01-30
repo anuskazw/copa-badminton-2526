@@ -1,0 +1,131 @@
+{
+  "dobles": {
+    "participantes": {
+      "A": "Margarita Arizaga / Dora Yánez",
+      "B": "Paula Bak / Mónica Castrillejo",
+      "C": "Nadia Marcos / María Jesús Serna",
+      "D": "Mónica Rodríguez / Ana María Caballero"
+    },
+    "partidos": [
+      {
+        "equipo1": [
+          "12",
+          "21",
+          ""
+        ],
+        "equipo2": [
+          "21",
+          "12",
+          "21"
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      }
+    ]
+  },
+  "individual": {
+    "participantes": {
+      "A": "Mónica Rodríguez",
+      "B": "Paula Bak",
+      "C": "Margarita Arizaga",
+      "D": "Mónica Castrillejo",
+      "E": "Jamie Gissel Valencia"
+    },
+    "partidos": [
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "equipo1": [
+          "",
+          "",
+          ""
+        ],
+        "equipo2": [
+          "",
+          "",
+          ""
+        ]
+      }
+    ]
+  }
+}

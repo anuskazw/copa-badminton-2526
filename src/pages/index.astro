@@ -589,6 +589,168 @@ const individualParticipantes = [
   document.querySelectorAll('[data-set]').forEach(input => {
     input.addEventListener('input', updateClasificacion);
   });
+
+  // === SINCRONIZACIÓN CON API ===
+  const API_URL = '/copa-badminton-2526/api/resultados';
+  let isSaving = false;
+
+  // Recopilar todos los datos del formulario
+  function collectData() {
+    const data = {
+      dobles: {
+        participantes: {},
+        partidos: []
+      },
+      individual: {
+        participantes: {},
+        partidos: []
+      }
+    };
+
+    // Participantes dobles
+    document.querySelectorAll('#dobles-femenino [data-participante]').forEach(input => {
+      const key = input.dataset.participante.replace('dobles-', '');
+      data.dobles.participantes[key] = input.value;
+    });
+
+    // Participantes individual
+    document.querySelectorAll('#individual-femenino [data-participante]').forEach(input => {
+      const key = input.dataset.participante.replace('individual-', '');
+      data.individual.participantes[key] = input.value;
+    });
+
+    // Partidos dobles
+    document.querySelectorAll('#dobles-femenino [data-match]').forEach(match => {
+      const partido = { equipo1: [], equipo2: [] };
+      match.querySelectorAll('[data-team="1"] [data-set]').forEach(input => {
+        partido.equipo1.push(input.value);
+      });
+      match.querySelectorAll('[data-team="2"] [data-set]').forEach(input => {
+        partido.equipo2.push(input.value);
+      });
+      data.dobles.partidos.push(partido);
+    });
+
+    // Partidos individual
+    document.querySelectorAll('#individual-femenino [data-match]').forEach(match => {
+      const partido = { equipo1: [], equipo2: [] };
+      match.querySelectorAll('[data-team="1"] [data-set]').forEach(input => {
+        partido.equipo1.push(input.value);
+      });
+      match.querySelectorAll('[data-team="2"] [data-set]').forEach(input => {
+        partido.equipo2.push(input.value);
+      });
+      data.individual.partidos.push(partido);
+    });
+
+    return data;
+  }
+
+  // Aplicar datos al formulario
+  function applyData(data) {
+    if (!data) return;
+
+    // Participantes dobles
+    if (data.dobles?.participantes) {
+      Object.entries(data.dobles.participantes).forEach(([key, value]) => {
+        const input = document.querySelector(`[data-participante="dobles-${key}"]`);
+        if (input && input.value !== value) {
+          input.value = value;
+          document.querySelectorAll(`[data-show="dobles-${key}"]`).forEach(span => {
+            span.textContent = value;
+          });
+        }
+      });
+    }
+
+    // Participantes individual
+    if (data.individual?.participantes) {
+      Object.entries(data.individual.participantes).forEach(([key, value]) => {
+        const input = document.querySelector(`[data-participante="individual-${key}"]`);
+        if (input && input.value !== value) {
+          input.value = value;
+          document.querySelectorAll(`[data-show="individual-${key}"]`).forEach(span => {
+            span.textContent = value;
+          });
+        }
+      });
+    }
+
+    // Partidos dobles
+    if (data.dobles?.partidos) {
+      const doblesMatches = document.querySelectorAll('#dobles-femenino [data-match]');
+      data.dobles.partidos.forEach((partido, i) => {
+        if (!doblesMatches[i]) return;
+        const inputs1 = doblesMatches[i].querySelectorAll('[data-team="1"] [data-set]');
+        const inputs2 = doblesMatches[i].querySelectorAll('[data-team="2"] [data-set]');
+        partido.equipo1.forEach((val, j) => { if (inputs1[j]) inputs1[j].value = val; });
+        partido.equipo2.forEach((val, j) => { if (inputs2[j]) inputs2[j].value = val; });
+      });
+    }
+
+    // Partidos individual
+    if (data.individual?.partidos) {
+      const individualMatches = document.querySelectorAll('#individual-femenino [data-match]');
+      data.individual.partidos.forEach((partido, i) => {
+        if (!individualMatches[i]) return;
+        const inputs1 = individualMatches[i].querySelectorAll('[data-team="1"] [data-set]');
+        const inputs2 = individualMatches[i].querySelectorAll('[data-team="2"] [data-set]');
+        partido.equipo1.forEach((val, j) => { if (inputs1[j]) inputs1[j].value = val; });
+        partido.equipo2.forEach((val, j) => { if (inputs2[j]) inputs2[j].value = val; });
+      });
+    }
+
+    calculateSetsWon();
+    updateClasificacion();
+  }
+
+  // Cargar datos de la API
+  async function loadData() {
+    try {
+      const res = await fetch(API_URL);
+      if (res.ok) {
+        const data = await res.json();
+        applyData(data);
+      }
+    } catch (e) {
+      console.log('Error cargando datos:', e);
+    }
+  }
+
+  // Guardar datos en la API
+  async function saveData() {
+    if (isSaving) return;
+    isSaving = true;
+    try {
+      const data = collectData();
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) {
+      console.log('Error guardando datos:', e);
+    }
+    isSaving = false;
+  }
+
+  // Debounce para guardar
+  let saveTimeout;
+  function debouncedSave() {
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(saveData, 500);
+  }
+
+  // Escuchar cambios en todos los inputs
+  document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', debouncedSave);
+  });
+
+  // Cargar datos al iniciar
+  loadData();
+
+  // Actualizar cada 5 segundos para ver cambios de otros dispositivos
+  setInterval(loadData, 5000);
 </script>
 
 <style>
