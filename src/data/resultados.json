@@ -1,22 +1,22 @@
 {
   "dobles": {
     "participantes": {
-      "A": "Margarita Arizaga / Dora Yánez",
-      "B": "Paula Bak / Mónica Castrillejo",
-      "C": "Nadia Marcos / María Jesús Serna",
-      "D": "Mónica Rodríguez / Ana María Caballero"
+      "A": "EQUIPO A",
+      "B": "EQUIPO B",
+      "C": "EQUIPO C",
+      "D": "EQUIPO D"
     },
     "partidos": [
       {
         "equipo1": [
-          "12",
-          "23",
+          "",
+          "",
           ""
         ],
         "equipo2": [
-          "21",
-          "21",
-          "21"
+          "",
+          "",
+          ""
         ]
       },
       {
@@ -59,17 +59,17 @@
   },
   "individual": {
     "participantes": {
-      "A": "Mónica Rodríguez",
-      "B": "Paula Bak",
-      "C": "Margarita Arizaga",
-      "D": "Mónica Castrillejo",
-      "E": "Jamie Gissel Valencia"
+      "A": "JUGADORA A",
+      "B": "JUGADORA B",
+      "C": "JUGADORA C",
+      "D": "JUGADORA D",
+      "E": "JUGADORA E"
     },
     "partidos": [
       {
         "equipo1": [
-          "21",
-          "21",
+          "",
+          "",
           ""
         ],
         "equipo2": [

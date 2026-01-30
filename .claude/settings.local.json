@@ -15,7 +15,12 @@
       "mcp__chrome-devtools__evaluate_script",
       "WebFetch(domain:fmds.es)",
       "Bash(lsof:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(cd /Users/anamariacaballero/Downloads/copa-badminton\\\\ 2 && npm install @astrojs/node:*)",
+      "Bash(cd:*)",
+      "mcp__chrome-devtools__fill",
+      "WebFetch(domain:anuskazw.github.io)",
+      "Bash(cd /Users/anamariacaballero/Downloads/copa-badminton\\\\ 2:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
