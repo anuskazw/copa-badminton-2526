@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { put, list } from '@vercel/blob';
+import { put, list, del } from '@vercel/blob';
 
 export const prerender = false;
 
@@ -39,7 +39,7 @@ export const GET: APIRoute = async () => {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache'
+          'Cache-Control': 'no-cache, no-store, must-revalidate'
         }
       });
     }
@@ -62,18 +62,27 @@ export const GET: APIRoute = async () => {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
+    const jsonString = JSON.stringify(body, null, 2);
 
-    await put(BLOB_NAME, JSON.stringify(body, null, 2), {
+    // Eliminar blob anterior si existe
+    const { blobs } = await list();
+    const existingBlob = blobs.find(b => b.pathname === BLOB_NAME);
+    if (existingBlob) {
+      await del(existingBlob.url);
+    }
+
+    // Crear nuevo blob
+    const blob = await put(BLOB_NAME, jsonString, {
       access: 'public',
-      addRandomSuffix: false
+      contentType: 'application/json'
     });
 
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, url: blob.url }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: 'Error al guardar datos' }), {
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message || 'Error al guardar' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
