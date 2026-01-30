@@ -628,7 +628,9 @@ const individualParticipantes = [
   // Cargar datos de la API
   async function loadData() {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL + '?t=' + Date.now(), {
+        cache: 'no-store'
+      });
       if (res.ok) {
         const data = await res.json();
         applyData(data);
