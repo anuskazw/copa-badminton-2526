@@ -30,16 +30,30 @@ const defaultData = {
 export const GET: APIRoute = async () => {
   try {
     const { blobs } = await list();
-    const blob = blobs.find(b => b.pathname === BLOB_NAME);
 
-    if (blob) {
-      const response = await fetch(blob.url);
+    // Buscar el blob más reciente que contenga nuestro nombre
+    const matchingBlobs = blobs
+      .filter(b => b.pathname.includes('resultados'))
+      .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+
+    if (matchingBlobs.length > 0) {
+      const latestBlob = matchingBlobs[0];
+
+      // Eliminar blobs antiguos (mantener solo el más reciente)
+      for (let i = 1; i < matchingBlobs.length; i++) {
+        try {
+          await del(matchingBlobs[i].url);
+        } catch (e) {}
+      }
+
+      const response = await fetch(latestBlob.url + '?t=' + Date.now());
       const data = await response.json();
       return new Response(JSON.stringify(data), {
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache, no-store, must-revalidate'
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
         }
       });
     }
@@ -64,11 +78,14 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
     const jsonString = JSON.stringify(body, null, 2);
 
-    // Eliminar blob anterior si existe
+    // Eliminar TODOS los blobs anteriores
     const { blobs } = await list();
-    const existingBlob = blobs.find(b => b.pathname === BLOB_NAME);
-    if (existingBlob) {
-      await del(existingBlob.url);
+    const matchingBlobs = blobs.filter(b => b.pathname.includes('resultados'));
+
+    for (const blob of matchingBlobs) {
+      try {
+        await del(blob.url);
+      } catch (e) {}
     }
 
     // Crear nuevo blob
