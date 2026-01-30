@@ -734,23 +734,41 @@ const individualParticipantes = [
     isSaving = false;
   }
 
-  // Debounce para guardar
-  let saveTimeout;
-  function debouncedSave() {
-    clearTimeout(saveTimeout);
-    saveTimeout = setTimeout(saveData, 500);
-  }
+  // Control de foco para evitar actualizaciones mientras se edita
+  let isInputFocused = false;
+  let hasChanges = false;
 
   // Escuchar cambios en todos los inputs
   document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('input', debouncedSave);
+    input.addEventListener('focus', () => {
+      isInputFocused = true;
+    });
+
+    input.addEventListener('blur', async () => {
+      isInputFocused = false;
+      if (hasChanges) {
+        await saveData();
+        hasChanges = false;
+        loadData();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      hasChanges = true;
+      calculateSetsWon();
+      updateClasificacion();
+    });
   });
 
   // Cargar datos al iniciar
   loadData();
 
-  // Actualizar cada 5 segundos para ver cambios de otros dispositivos
-  setInterval(loadData, 5000);
+  // Actualizar cada 2 segundos solo si no hay input enfocado
+  setInterval(() => {
+    if (!isInputFocused) {
+      loadData();
+    }
+  }, 2000);
 </script>
 
 <style>
