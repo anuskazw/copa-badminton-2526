@@ -20,7 +20,9 @@
       "Bash(cd:*)",
       "mcp__chrome-devtools__fill",
       "WebFetch(domain:anuskazw.github.io)",
-      "Bash(cd /Users/anamariacaballero/Downloads/copa-badminton\\\\ 2:*)"
+      "Bash(cd /Users/anamariacaballero/Downloads/copa-badminton\\\\ 2:*)",
+      "Bash(cd /Users/anamariacaballero/Downloads/copa-badminton\\\\ 2 && npm install:*)",
+      "Bash(npm install:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

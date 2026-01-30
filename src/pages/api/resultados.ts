@@ -1,15 +1,50 @@
 import type { APIRoute } from 'astro';
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-
-const dataPath = join(process.cwd(), 'src/data/resultados.json');
+import { put, list } from '@vercel/blob';
 
 export const prerender = false;
 
+const BLOB_NAME = 'resultados.json';
+
+const defaultData = {
+  dobles: {
+    participantes: {
+      A: "Margarita Arizaga / Dora Yánez",
+      B: "Paula Bak / Mónica Castrillejo",
+      C: "Nadia Marcos / María Jesús Serna",
+      D: "Mónica Rodríguez / Ana María Caballero"
+    },
+    partidos: []
+  },
+  individual: {
+    participantes: {
+      A: "Mónica Rodríguez",
+      B: "Paula Bak",
+      C: "Margarita Arizaga",
+      D: "Mónica Castrillejo",
+      E: "Jamie Gissel Valencia"
+    },
+    partidos: []
+  }
+};
+
 export const GET: APIRoute = async () => {
   try {
-    const data = readFileSync(dataPath, 'utf-8');
-    return new Response(data, {
+    const { blobs } = await list();
+    const blob = blobs.find(b => b.pathname === BLOB_NAME);
+
+    if (blob) {
+      const response = await fetch(blob.url);
+      const data = await response.json();
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      });
+    }
+
+    return new Response(JSON.stringify(defaultData), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
@@ -17,8 +52,8 @@ export const GET: APIRoute = async () => {
       }
     });
   } catch (error) {
-    return new Response(JSON.stringify({ error: 'Error al leer datos' }), {
-      status: 500,
+    return new Response(JSON.stringify(defaultData), {
+      status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   }
@@ -27,7 +62,12 @@ export const GET: APIRoute = async () => {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
-    writeFileSync(dataPath, JSON.stringify(body, null, 2));
+
+    await put(BLOB_NAME, JSON.stringify(body, null, 2), {
+      access: 'public',
+      addRandomSuffix: false
+    });
+
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
