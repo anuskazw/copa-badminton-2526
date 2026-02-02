@@ -376,12 +376,19 @@ const individualParticipantes = [
   <section class="programacion" id="programacion">
     <h2>
       <span>Programación</span>
-      <button class="btn-add-partido" id="btn-add-partido" title="Añadir partido">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
+      <div class="programacion-controls">
+        <label class="toggle-visibility" title="Mostrar/ocultar en página pública">
+          <input type="checkbox" id="toggle-programacion-visible" checked />
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">Visible</span>
+        </label>
+        <button class="btn-add-partido" id="btn-add-partido" title="Añadir partido">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+      </div>
     </h2>
     <div class="tabla-programacion-container">
       <table class="tabla-programacion" id="tabla-programacion">
@@ -629,6 +636,7 @@ const individualParticipantes = [
 
   // Recopilar todos los datos del formulario (sin programación)
   function collectData() {
+    const toggleVisible = document.getElementById('toggle-programacion-visible');
     const data = {
       dobles: {
         participantes: {},
@@ -637,7 +645,8 @@ const individualParticipantes = [
       individual: {
         participantes: {},
         partidos: []
-      }
+      },
+      mostrarProgramacion: toggleVisible ? toggleVisible.checked : true
     };
 
     // Participantes dobles
@@ -746,8 +755,24 @@ const individualParticipantes = [
       });
     }
 
+    // Toggle de visibilidad de programación
+    const toggleVisible = document.getElementById('toggle-programacion-visible');
+    if (toggleVisible && data.mostrarProgramacion !== undefined) {
+      toggleVisible.checked = data.mostrarProgramacion;
+      updateToggleLabel();
+    }
+
     calculateSetsWon();
     updateClasificacion();
+  }
+
+  // Actualizar el label del toggle
+  function updateToggleLabel() {
+    const toggleVisible = document.getElementById('toggle-programacion-visible');
+    const label = toggleVisible?.parentElement?.querySelector('.toggle-label');
+    if (label) {
+      label.textContent = toggleVisible.checked ? 'Visible' : 'Oculto';
+    }
   }
 
   // === GESTIÓN DE PROGRAMACIÓN ===
@@ -969,6 +994,15 @@ const individualParticipantes = [
       updateClasificacion();
     });
   });
+
+  // Event listener para toggle de visibilidad
+  const toggleProgramacionVisible = document.getElementById('toggle-programacion-visible');
+  if (toggleProgramacionVisible) {
+    toggleProgramacionVisible.addEventListener('change', () => {
+      updateToggleLabel();
+      saveData();
+    });
+  }
 
   // Cargar datos al iniciar
   loadData();
@@ -1508,6 +1542,61 @@ const individualParticipantes = [
     align-items: center;
     justify-content: space-between;
     background: #2563eb;
+  }
+
+  .programacion-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toggle-visibility {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle-visibility input {
+    display: none;
+  }
+
+  .toggle-slider {
+    width: 36px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .toggle-slider::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s;
+  }
+
+  .toggle-visibility input:checked + .toggle-slider {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .toggle-visibility input:checked + .toggle-slider::after {
+    transform: translateX(16px);
+  }
+
+  .toggle-label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    opacity: 0.9;
   }
 
   .btn-add-partido {

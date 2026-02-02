@@ -591,6 +591,16 @@ const individualParticipantes = [
   function applyData(data) {
     if (!data) return;
 
+    // Mostrar/ocultar programación según configuración
+    const programacionSection = document.getElementById('programacion');
+    if (programacionSection) {
+      if (data.mostrarProgramacion === false) {
+        programacionSection.style.display = 'none';
+      } else {
+        programacionSection.style.display = '';
+      }
+    }
+
     // Participantes dobles
     if (data.dobles?.participantes) {
       Object.entries(data.dobles.participantes).forEach(([key, value]) => {
