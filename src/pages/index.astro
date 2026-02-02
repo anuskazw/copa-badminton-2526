@@ -371,6 +371,71 @@ const individualParticipantes = [
   <section class="sin-participacion">
     <p>Sin participación: Dobles Mixto · Dobles Masculino · Individual Masculino</p>
   </section>
+
+  <!-- PROGRAMACIÓN -->
+  <section class="programacion" id="programacion">
+    <h2>Programación</h2>
+    <table class="tabla-programacion">
+      <thead>
+        <tr>
+          <th>Enfrentamiento</th>
+          <th>Modalidad</th>
+          <th>Pista</th>
+          <th>Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </Layout>
 
 <script>
@@ -1160,6 +1225,54 @@ const individualParticipantes = [
     padding: 20px 0;
     color: #999;
     font-size: 0.85rem;
+  }
+
+  /* Sección Programación */
+  .programacion {
+    padding: 30px 0 40px 0;
+    margin-top: 20px;
+  }
+
+  .programacion h2 {
+    background: #333;
+  }
+
+  .tabla-programacion {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 15px;
+  }
+
+  .tabla-programacion th,
+  .tabla-programacion td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .tabla-programacion th {
+    background: #f5f5f5;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  .tabla-programacion th:nth-child(3),
+  .tabla-programacion th:nth-child(4),
+  .tabla-programacion td:nth-child(3),
+  .tabla-programacion td:nth-child(4) {
+    text-align: center;
+    width: 80px;
+  }
+
+  .tabla-programacion tbody tr:hover {
+    background: #fafafa;
+  }
+
+  .tabla-programacion td:first-child {
+    font-weight: 500;
   }
 
   @media (max-width: 800px) {
