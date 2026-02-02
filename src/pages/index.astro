@@ -3,19 +3,19 @@ import Layout from '../layouts/Layout.astro';
 
 // DOBLES FEMENINO
 const doblesParticipantes = [
-  { letra: 'A', nombre: 'Margarita Arizaga / Dora Yánez' },
-  { letra: 'B', nombre: 'Paula Bak / Mónica Castrillejo' },
-  { letra: 'C', nombre: 'Nadia Marcos / María Jesús Serna' },
-  { letra: 'D', nombre: 'Mónica Rodríguez / Ana María Caballero' }
+  { letra: 'A', nombre: '' },
+  { letra: 'B', nombre: '' },
+  { letra: 'C', nombre: '' },
+  { letra: 'D', nombre: '' }
 ];
 
 // INDIVIDUAL FEMENINO
 const individualParticipantes = [
-  { letra: 'A', nombre: 'Mónica Rodríguez' },
-  { letra: 'B', nombre: 'Paula Bak' },
-  { letra: 'C', nombre: 'Margarita Arizaga' },
-  { letra: 'D', nombre: 'Mónica Castrillejo' },
-  { letra: 'E', nombre: 'Jamie Gissel Valencia' }
+  { letra: 'A', nombre: '' },
+  { letra: 'B', nombre: '' },
+  { letra: 'C', nombre: '' },
+  { letra: 'D', nombre: '' },
+  { letra: 'E', nombre: '' }
 ];
 ---
 
@@ -1275,11 +1275,12 @@ const individualParticipantes = [
     font-weight: 500;
   }
 
+  /* === ESTILOS MÓVILES === */
   @media (max-width: 800px) {
     .bracket {
       flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
+      align-items: stretch;
+      gap: 20px;
     }
 
     .bracket-connector {
@@ -1288,20 +1289,151 @@ const individualParticipantes = [
 
     .bracket-round {
       width: 100%;
+      gap: 15px;
     }
 
-    .match {
+    .round-label {
+      background: #f5f5f5;
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .match,
+    .modalidad-individual .match {
       width: 100%;
-      max-width: 300px;
+      max-width: 100%;
     }
 
-    .trophy {
-      padding-left: 0;
-      align-self: center;
+    .match-team {
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+
+    .team-name {
+      width: 100%;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .score-total {
+      margin-right: 0;
+    }
+
+    .score-boxes {
+      margin-left: auto;
+    }
+
+    .score-input {
+      width: 38px;
+      height: 32px;
+      font-size: 1rem;
+    }
+
+    .score-total span {
+      width: 30px;
+      height: 30px;
+      font-size: 1rem;
+    }
+
+    .modalidad-dobles .bracket-round:nth-child(3) .match,
+    .modalidad-individual .bracket-round:last-of-type .match {
+      margin-top: 0;
+    }
+
+    .tercer-puesto,
+    .quinto-puesto {
+      margin-top: 20px;
+      padding-top: 20px;
+    }
+
+    .modalidad-dobles .tercer-puesto .round-label,
+    .modalidad-individual .tercer-puesto .round-label,
+    .modalidad-individual .quinto-puesto .round-label {
+      width: 100%;
     }
 
     .puestos-inferiores {
       flex-direction: column;
+      gap: 15px;
+    }
+
+    .bye-box {
+      max-width: 100%;
+    }
+
+    /* Tabla clasificación móvil */
+    .clasificacion {
+      font-size: 0.75rem;
+    }
+
+    .clasificacion th,
+    .clasificacion td {
+      padding: 8px 6px;
+    }
+
+    .clasificacion th:nth-child(n+3),
+    .clasificacion td:nth-child(n+3) {
+      padding: 8px 4px;
+    }
+
+    /* Participantes móvil */
+    .participante-input {
+      max-width: 100%;
+    }
+
+    /* Info móvil */
+    .info {
+      padding: 12px 15px;
+    }
+
+    .info p {
+      font-size: 0.85rem;
+    }
+
+    h2 {
+      font-size: 0.9rem;
+      padding: 10px 15px;
+    }
+
+    h3 {
+      font-size: 0.8rem;
+      margin: 20px 0 10px;
+    }
+
+    .modalidad {
+      padding: 20px 0 30px 0;
+    }
+  }
+
+  /* Móviles pequeños */
+  @media (max-width: 400px) {
+    .score-input {
+      width: 32px;
+      height: 28px;
+    }
+
+    .score-total span {
+      width: 26px;
+      height: 26px;
+    }
+
+    .match-team {
+      padding: 8px 10px;
+    }
+
+    .team-name {
+      font-size: 0.8rem;
+    }
+
+    .clasificacion {
+      font-size: 0.7rem;
+    }
+
+    .clasificacion th,
+    .clasificacion td {
+      padding: 6px 3px;
     }
   }
 </style>
