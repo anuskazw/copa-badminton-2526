@@ -1228,10 +1228,11 @@ const individualParticipantes = [
   .programacion {
     padding: 30px 0 40px 0;
     margin-top: 20px;
+    border-top: 2px solid #e5e5e5;
   }
 
   .programacion h2 {
-    background: #333;
+    background: #2563eb;
   }
 
   .tabla-programacion {
@@ -1239,47 +1240,95 @@ const individualParticipantes = [
     border-collapse: collapse;
     font-size: 0.85rem;
     margin-top: 15px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   .tabla-programacion th,
   .tabla-programacion td {
-    padding: 12px 15px;
+    padding: 16px;
     text-align: left;
     border-bottom: 1px solid #e5e5e5;
+    vertical-align: middle;
+  }
+
+  .tabla-programacion :global(td) {
+    padding: 18px 16px;
   }
 
   .tabla-programacion th {
-    background: #f5f5f5;
+    background: #f8fafc;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    color: #666;
+    color: #64748b;
+    letter-spacing: 0.5px;
+  }
+
+  .tabla-programacion th:first-child,
+  .tabla-programacion th:nth-child(2) {
+    padding-left: 20px;
   }
 
   .tabla-programacion th:nth-child(3),
-  .tabla-programacion th:nth-child(4),
-  .tabla-programacion td:nth-child(3),
-  .tabla-programacion td:nth-child(4) {
+  .tabla-programacion th:nth-child(4) {
     text-align: center;
-    width: 80px;
+    vertical-align: middle;
+    width: 90px;
   }
 
-  .tabla-programacion tbody tr:hover {
-    background: #fafafa;
+  .tabla-programacion tbody :global(tr) {
+    transition: background 0.15s;
   }
 
-  .tabla-programacion td:first-child {
+  .tabla-programacion tbody :global(tr:hover) {
+    background: #f8fafc;
+  }
+
+  .tabla-programacion tbody :global(tr:last-child td) {
+    border-bottom: none;
+  }
+
+  .tabla-programacion :global(td:first-child) {
+    font-weight: 600;
+    color: #1e293b;
+    padding-left: 20px;
+  }
+
+  .tabla-programacion :global(td:nth-child(2)) {
+    color: #64748b;
+    font-size: 0.8rem;
+    padding-left: 20px;
+  }
+
+  .tabla-programacion :global(td:nth-child(3)),
+  .tabla-programacion :global(td:nth-child(4)) {
+    text-align: center;
+    vertical-align: middle;
+    width: 90px;
+  }
+
+  .tabla-programacion :global(td:nth-child(3)) {
+    font-weight: 600;
+    color: #2563eb;
+  }
+
+  .tabla-programacion :global(td:nth-child(4)) {
     font-weight: 500;
+    color: #059669;
+    font-family: 'Courier New', monospace;
   }
 
   .programacion-empty {
     margin-top: 15px;
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
-    color: #999;
+    color: #94a3b8;
     font-size: 0.9rem;
-    background: #f9f9f9;
-    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
     display: none;
   }
 
