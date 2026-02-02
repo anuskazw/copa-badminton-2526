@@ -585,6 +585,7 @@ const individualParticipantes = [
 
   // === SINCRONIZACIÓN CON API (SOLO LECTURA) ===
   const API_URL = '/api/resultados';
+  const API_PROGRAMACION = '/api/programacion';
 
   // Aplicar datos al formulario
   function applyData(data) {
@@ -642,11 +643,6 @@ const individualParticipantes = [
 
     calculateSetsWon();
     updateClasificacion();
-
-    // Programación
-    if (data.programacion) {
-      applyProgramacion(data.programacion);
-    }
   }
 
   // Aplicar programación (solo lectura)
@@ -687,11 +683,30 @@ const individualParticipantes = [
     }
   }
 
+  // Cargar programación de la API
+  async function loadProgramacion() {
+    try {
+      const res = await fetch(API_PROGRAMACION + '?t=' + Date.now(), {
+        cache: 'no-store'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        applyProgramacion(data);
+      }
+    } catch (e) {
+      console.log('Error cargando programación:', e);
+    }
+  }
+
   // Cargar datos al iniciar
   loadData();
+  loadProgramacion();
 
   // Actualizar cada 2 segundos para ver cambios en tiempo real
-  setInterval(loadData, 2000);
+  setInterval(() => {
+    loadData();
+    loadProgramacion();
+  }, 2000);
 </script>
 
 <style>

@@ -623,9 +623,11 @@ const individualParticipantes = [
 
   // === SINCRONIZACIÓN CON API ===
   const API_URL = '/api/resultados';
+  const API_PROGRAMACION = '/api/programacion';
   let isSaving = false;
+  let isSavingProgramacion = false;
 
-  // Recopilar todos los datos del formulario
+  // Recopilar todos los datos del formulario (sin programación)
   function collectData() {
     const data = {
       dobles: {
@@ -635,8 +637,7 @@ const individualParticipantes = [
       individual: {
         participantes: {},
         partidos: []
-      },
-      programacion: []
+      }
     };
 
     // Participantes dobles
@@ -675,16 +676,20 @@ const individualParticipantes = [
       data.individual.partidos.push(partido);
     });
 
-    // Programación
+    return data;
+  }
+
+  // Recopilar datos de programación
+  function collectProgramacion() {
+    const programacion = [];
     document.querySelectorAll('#programacion-tbody tr').forEach(row => {
       const enfrentamiento = row.querySelector('.input-enfrentamiento')?.value || '';
       const modalidad = row.querySelector('.input-modalidad')?.value || '';
       const pista = row.querySelector('.input-pista')?.value || '';
       const hora = row.querySelector('.input-hora')?.value || '';
-      data.programacion.push({ enfrentamiento, modalidad, pista, hora });
+      programacion.push({ enfrentamiento, modalidad, pista, hora });
     });
-
-    return data;
+    return programacion;
   }
 
   // Aplicar datos al formulario
@@ -743,11 +748,6 @@ const individualParticipantes = [
 
     calculateSetsWon();
     updateClasificacion();
-
-    // Programación
-    if (data.programacion) {
-      applyProgramacion(data.programacion);
-    }
   }
 
   // === GESTIÓN DE PROGRAMACIÓN ===
@@ -789,8 +789,7 @@ const individualParticipantes = [
     // Event listener para eliminar
     tr.querySelector('.btn-delete-row').addEventListener('click', () => {
       tr.remove();
-      hasChanges = true;
-      saveData();
+      saveProgramacion();
     });
 
     // Event listeners para inputs
@@ -798,10 +797,7 @@ const individualParticipantes = [
       input.addEventListener('focus', () => { isInputFocused = true; });
       input.addEventListener('blur', () => {
         isInputFocused = false;
-        if (hasChanges) {
-          saveData();
-          hasChanges = false;
-        }
+        saveProgramacion();
       });
       input.addEventListener('input', () => { hasChanges = true; });
     });
@@ -849,8 +845,7 @@ const individualParticipantes = [
         this.parentNode.insertBefore(draggedRow, this);
       }
 
-      hasChanges = true;
-      saveData();
+      saveProgramacion();
     }
   }
 
@@ -883,8 +878,7 @@ const individualParticipantes = [
   // Añadir nuevo partido
   btnAddPartido.addEventListener('click', () => {
     programacionTbody.appendChild(createProgramacionRow());
-    hasChanges = true;
-    saveData();
+    saveProgramacion();
   });
 
   // Cargar datos de la API
@@ -919,6 +913,38 @@ const individualParticipantes = [
     isSaving = false;
   }
 
+  // Cargar programación de la API
+  async function loadProgramacion() {
+    try {
+      const res = await fetch(API_PROGRAMACION + '?t=' + Date.now(), {
+        cache: 'no-store'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        applyProgramacion(data);
+      }
+    } catch (e) {
+      console.log('Error cargando programación:', e);
+    }
+  }
+
+  // Guardar programación en la API
+  async function saveProgramacion() {
+    if (isSavingProgramacion) return;
+    isSavingProgramacion = true;
+    try {
+      const data = collectProgramacion();
+      await fetch(API_PROGRAMACION, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) {
+      console.log('Error guardando programación:', e);
+    }
+    isSavingProgramacion = false;
+  }
+
   // Control de foco para evitar actualizaciones mientras se edita
   let isInputFocused = false;
   let hasChanges = false;
@@ -946,11 +972,13 @@ const individualParticipantes = [
 
   // Cargar datos al iniciar
   loadData();
+  loadProgramacion();
 
   // Actualizar cada 2 segundos solo si no hay input enfocado
   setInterval(() => {
     if (!isInputFocused) {
       loadData();
+      loadProgramacion();
     }
   }, 2000);
 </script>
