@@ -371,6 +371,37 @@ const individualParticipantes = [
   <section class="sin-participacion">
     <p>Sin participación: Dobles Mixto · Dobles Masculino · Individual Masculino</p>
   </section>
+
+  <!-- PROGRAMACIÓN -->
+  <section class="programacion" id="programacion">
+    <h2>
+      <span>Programación</span>
+      <button class="btn-add-partido" id="btn-add-partido" title="Añadir partido">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+    </h2>
+    <div class="tabla-programacion-container">
+      <table class="tabla-programacion" id="tabla-programacion">
+        <thead>
+          <tr>
+            <th class="drag-handle-header"></th>
+            <th>Enfrentamiento</th>
+            <th>Modalidad</th>
+            <th>Pista</th>
+            <th>Hora</th>
+            <th class="delete-header"></th>
+          </tr>
+        </thead>
+        <tbody id="programacion-tbody">
+          <!-- Los partidos se añaden dinámicamente -->
+        </tbody>
+      </table>
+    </div>
+    <p class="programacion-hint">Arrastra las filas para reordenar los partidos</p>
+  </section>
 </Layout>
 
 <script>
@@ -604,7 +635,8 @@ const individualParticipantes = [
       individual: {
         participantes: {},
         partidos: []
-      }
+      },
+      programacion: []
     };
 
     // Participantes dobles
@@ -641,6 +673,15 @@ const individualParticipantes = [
         partido.equipo2.push(input.value);
       });
       data.individual.partidos.push(partido);
+    });
+
+    // Programación
+    document.querySelectorAll('#programacion-tbody tr').forEach(row => {
+      const enfrentamiento = row.querySelector('.input-enfrentamiento')?.value || '';
+      const modalidad = row.querySelector('.input-modalidad')?.value || '';
+      const pista = row.querySelector('.input-pista')?.value || '';
+      const hora = row.querySelector('.input-hora')?.value || '';
+      data.programacion.push({ enfrentamiento, modalidad, pista, hora });
     });
 
     return data;
@@ -702,7 +743,149 @@ const individualParticipantes = [
 
     calculateSetsWon();
     updateClasificacion();
+
+    // Programación
+    if (data.programacion) {
+      applyProgramacion(data.programacion);
+    }
   }
+
+  // === GESTIÓN DE PROGRAMACIÓN ===
+  const programacionTbody = document.getElementById('programacion-tbody');
+  const btnAddPartido = document.getElementById('btn-add-partido');
+  let draggedRow = null;
+
+  function createProgramacionRow(partido = {}) {
+    const tr = document.createElement('tr');
+    tr.draggable = true;
+    tr.innerHTML = `
+      <td class="drag-handle" title="Arrastrar para reordenar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="8" x2="20" y2="8"></line>
+          <line x1="4" y1="16" x2="20" y2="16"></line>
+        </svg>
+      </td>
+      <td><input type="text" class="prog-input input-enfrentamiento" placeholder="Ej: A vs B" value="${partido.enfrentamiento || ''}" /></td>
+      <td><input type="text" class="prog-input input-modalidad" placeholder="Ej: Dobles F" value="${partido.modalidad || ''}" /></td>
+      <td><input type="text" class="prog-input input-pista" placeholder="1" value="${partido.pista || ''}" /></td>
+      <td><input type="text" class="prog-input input-hora" placeholder="10:00" value="${partido.hora || ''}" /></td>
+      <td>
+        <button class="btn-delete-row" title="Eliminar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </td>
+    `;
+
+    // Event listeners para drag & drop
+    tr.addEventListener('dragstart', handleDragStart);
+    tr.addEventListener('dragend', handleDragEnd);
+    tr.addEventListener('dragover', handleDragOver);
+    tr.addEventListener('dragleave', handleDragLeave);
+    tr.addEventListener('drop', handleDrop);
+
+    // Event listener para eliminar
+    tr.querySelector('.btn-delete-row').addEventListener('click', () => {
+      tr.remove();
+      hasChanges = true;
+      saveData();
+    });
+
+    // Event listeners para inputs
+    tr.querySelectorAll('.prog-input').forEach(input => {
+      input.addEventListener('focus', () => { isInputFocused = true; });
+      input.addEventListener('blur', () => {
+        isInputFocused = false;
+        if (hasChanges) {
+          saveData();
+          hasChanges = false;
+        }
+      });
+      input.addEventListener('input', () => { hasChanges = true; });
+    });
+
+    return tr;
+  }
+
+  function handleDragStart(e) {
+    draggedRow = this;
+    this.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  }
+
+  function handleDragEnd(e) {
+    this.classList.remove('dragging');
+    document.querySelectorAll('#programacion-tbody tr').forEach(row => {
+      row.classList.remove('drag-over');
+    });
+    draggedRow = null;
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (this !== draggedRow) {
+      this.classList.add('drag-over');
+    }
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('drag-over');
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+    if (draggedRow && this !== draggedRow) {
+      const allRows = [...programacionTbody.querySelectorAll('tr')];
+      const draggedIdx = allRows.indexOf(draggedRow);
+      const targetIdx = allRows.indexOf(this);
+
+      if (draggedIdx < targetIdx) {
+        this.parentNode.insertBefore(draggedRow, this.nextSibling);
+      } else {
+        this.parentNode.insertBefore(draggedRow, this);
+      }
+
+      hasChanges = true;
+      saveData();
+    }
+  }
+
+  function applyProgramacion(programacion) {
+    // Solo actualizar si hay cambios reales
+    const currentRows = programacionTbody.querySelectorAll('tr');
+
+    // Verificar si necesitamos actualizar
+    if (currentRows.length === programacion.length) {
+      let needsUpdate = false;
+      currentRows.forEach((row, i) => {
+        const p = programacion[i];
+        if (row.querySelector('.input-enfrentamiento')?.value !== p.enfrentamiento ||
+            row.querySelector('.input-modalidad')?.value !== p.modalidad ||
+            row.querySelector('.input-pista')?.value !== p.pista ||
+            row.querySelector('.input-hora')?.value !== p.hora) {
+          needsUpdate = true;
+        }
+      });
+      if (!needsUpdate) return;
+    }
+
+    // Limpiar y recrear filas
+    programacionTbody.innerHTML = '';
+    programacion.forEach(partido => {
+      programacionTbody.appendChild(createProgramacionRow(partido));
+    });
+  }
+
+  // Añadir nuevo partido
+  btnAddPartido.addEventListener('click', () => {
+    programacionTbody.appendChild(createProgramacionRow());
+    hasChanges = true;
+    saveData();
+  });
 
   // Cargar datos de la API
   async function loadData() {
@@ -1285,6 +1468,165 @@ const individualParticipantes = [
     font-size: 0.85rem;
   }
 
+  /* === PROGRAMACIÓN === */
+  .programacion {
+    padding: 30px 0 40px 0;
+    margin-top: 20px;
+    border-top: 2px solid #e5e5e5;
+  }
+
+  .programacion h2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #2563eb;
+  }
+
+  .btn-add-partido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-add-partido:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .tabla-programacion-container {
+    overflow-x: auto;
+  }
+
+  .tabla-programacion {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 15px;
+  }
+
+  .tabla-programacion th,
+  .tabla-programacion td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .tabla-programacion th {
+    background: #f5f5f5;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #666;
+  }
+
+  .tabla-programacion th.drag-handle-header,
+  .tabla-programacion th.delete-header {
+    width: 40px;
+    padding: 10px 8px;
+  }
+
+  .tabla-programacion th:nth-child(4),
+  .tabla-programacion th:nth-child(5),
+  .tabla-programacion td:nth-child(4),
+  .tabla-programacion td:nth-child(5) {
+    text-align: center;
+    width: 80px;
+  }
+
+  .tabla-programacion tbody tr {
+    background: #fff;
+    transition: background 0.15s;
+  }
+
+  .tabla-programacion tbody tr:hover {
+    background: #fafafa;
+  }
+
+  .tabla-programacion tbody tr.dragging {
+    opacity: 0.5;
+    background: #e3f2fd;
+  }
+
+  .tabla-programacion tbody tr.drag-over {
+    border-top: 2px solid #2563eb;
+  }
+
+  .tabla-programacion .drag-handle {
+    cursor: grab;
+    padding: 8px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tabla-programacion .drag-handle:active {
+    cursor: grabbing;
+  }
+
+  .tabla-programacion .drag-handle svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tabla-programacion .prog-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 4px 0;
+    font-size: 0.85rem;
+    background: transparent;
+    transition: border-color 0.2s;
+  }
+
+  .tabla-programacion .prog-input:focus {
+    outline: none;
+    border-bottom-color: #2563eb;
+  }
+
+  .tabla-programacion .prog-input.input-pista,
+  .tabla-programacion .prog-input.input-hora {
+    text-align: center;
+    width: 60px;
+  }
+
+  .tabla-programacion .prog-input.input-hora {
+    width: 70px;
+  }
+
+  .tabla-programacion .btn-delete-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tabla-programacion .btn-delete-row:hover {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .programacion-hint {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+  }
+
   /* === ESTILOS MÓVILES === */
   @media (max-width: 800px) {
     .bracket {
@@ -1418,6 +1760,30 @@ const individualParticipantes = [
 
     .btn-print-section {
       display: none;
+    }
+
+    /* Programación móvil */
+    .programacion {
+      padding: 20px 0 30px 0;
+    }
+
+    .tabla-programacion th,
+    .tabla-programacion td {
+      padding: 8px 6px;
+      font-size: 0.8rem;
+    }
+
+    .tabla-programacion .prog-input {
+      font-size: 0.8rem;
+    }
+
+    .tabla-programacion .drag-handle {
+      padding: 4px;
+    }
+
+    .tabla-programacion th.drag-handle-header,
+    .tabla-programacion th.delete-header {
+      width: 32px;
     }
   }
 

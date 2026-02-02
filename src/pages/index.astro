@@ -384,57 +384,11 @@ const individualParticipantes = [
           <th>Hora</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
+      <tbody id="programacion-tbody">
+        <!-- Se carga dinámicamente desde la API -->
       </tbody>
     </table>
+    <p class="programacion-empty" id="programacion-empty">No hay partidos programados</p>
   </section>
 </Layout>
 
@@ -688,6 +642,34 @@ const individualParticipantes = [
 
     calculateSetsWon();
     updateClasificacion();
+
+    // Programación
+    if (data.programacion) {
+      applyProgramacion(data.programacion);
+    }
+  }
+
+  // Aplicar programación (solo lectura)
+  function applyProgramacion(programacion) {
+    const tbody = document.getElementById('programacion-tbody');
+    const emptyMsg = document.getElementById('programacion-empty');
+
+    if (!programacion || programacion.length === 0) {
+      tbody.innerHTML = '';
+      if (emptyMsg) emptyMsg.style.display = 'block';
+      return;
+    }
+
+    if (emptyMsg) emptyMsg.style.display = 'none';
+
+    tbody.innerHTML = programacion.map(p => `
+      <tr>
+        <td>${p.enfrentamiento || '-'}</td>
+        <td>${p.modalidad || '-'}</td>
+        <td>${p.pista || '-'}</td>
+        <td>${p.hora || '-'}</td>
+      </tr>
+    `).join('');
   }
 
   // Cargar datos de la API
@@ -1273,6 +1255,17 @@ const individualParticipantes = [
 
   .tabla-programacion td:first-child {
     font-weight: 500;
+  }
+
+  .programacion-empty {
+    margin-top: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-size: 0.9rem;
+    background: #f9f9f9;
+    border-radius: 6px;
+    display: none;
   }
 
   /* === ESTILOS MÓVILES === */

@@ -24,7 +24,8 @@ const defaultData = {
       E: ""
     },
     partidos: []
-  }
+  },
+  programacion: []
 };
 
 const noCacheHeaders = {
