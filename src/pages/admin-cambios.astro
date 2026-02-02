@@ -1513,9 +1513,14 @@ const individualParticipantes = [
 
   .tabla-programacion th,
   .tabla-programacion td {
-    padding: 10px 12px;
+    padding: 12px 8px;
     text-align: left;
     border-bottom: 1px solid #e5e5e5;
+    vertical-align: middle;
+  }
+
+  .tabla-programacion td {
+    padding: 8px 6px;
   }
 
   .tabla-programacion th {
@@ -1540,25 +1545,25 @@ const individualParticipantes = [
     width: 80px;
   }
 
-  .tabla-programacion tbody tr {
+  .tabla-programacion tbody :global(tr) {
     background: #fff;
     transition: background 0.15s;
   }
 
-  .tabla-programacion tbody tr:hover {
+  .tabla-programacion tbody :global(tr:hover) {
     background: #fafafa;
   }
 
-  .tabla-programacion tbody tr.dragging {
+  .tabla-programacion tbody :global(tr.dragging) {
     opacity: 0.5;
     background: #e3f2fd;
   }
 
-  .tabla-programacion tbody tr.drag-over {
+  .tabla-programacion tbody :global(tr.drag-over) {
     border-top: 2px solid #2563eb;
   }
 
-  .tabla-programacion .drag-handle {
+  .tabla-programacion :global(.drag-handle) {
     cursor: grab;
     padding: 8px;
     color: #999;
@@ -1567,41 +1572,47 @@ const individualParticipantes = [
     justify-content: center;
   }
 
-  .tabla-programacion .drag-handle:active {
+  .tabla-programacion :global(.drag-handle:active) {
     cursor: grabbing;
   }
 
-  .tabla-programacion .drag-handle svg {
+  .tabla-programacion :global(.drag-handle svg) {
     width: 16px;
     height: 16px;
   }
 
-  .tabla-programacion .prog-input {
+  .tabla-programacion :global(.prog-input) {
     width: 100%;
     border: none;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #e5e5e5;
     padding: 4px 0;
     font-size: 0.85rem;
     background: transparent;
-    transition: border-color 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
-  .tabla-programacion .prog-input:focus {
+  .tabla-programacion :global(.prog-input:focus) {
     outline: none;
-    border-bottom-color: #2563eb;
+    border-bottom-color: #999;
   }
 
-  .tabla-programacion .prog-input.input-pista,
-  .tabla-programacion .prog-input.input-hora {
+  .tabla-programacion :global(.prog-input::placeholder) {
+    color: #bbb;
+  }
+
+  .tabla-programacion :global(.prog-input.input-pista),
+  .tabla-programacion :global(.prog-input.input-hora) {
     text-align: center;
+    width: 50px;
+  }
+
+  .tabla-programacion :global(.prog-input.input-hora) {
     width: 60px;
   }
 
-  .tabla-programacion .prog-input.input-hora {
-    width: 70px;
-  }
-
-  .tabla-programacion .btn-delete-row {
+  .tabla-programacion :global(.btn-delete-row) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1615,7 +1626,7 @@ const individualParticipantes = [
     transition: all 0.2s;
   }
 
-  .tabla-programacion .btn-delete-row:hover {
+  .tabla-programacion :global(.btn-delete-row:hover) {
     background: #fee2e2;
     color: #dc2626;
   }
@@ -1769,12 +1780,21 @@ const individualParticipantes = [
 
     .tabla-programacion th,
     .tabla-programacion td {
-      padding: 8px 6px;
-      font-size: 0.8rem;
+      padding: 6px 4px;
+      font-size: 0.75rem;
     }
 
     .tabla-programacion .prog-input {
       font-size: 0.8rem;
+    }
+
+    .tabla-programacion .prog-input.input-pista,
+    .tabla-programacion .prog-input.input-hora {
+      width: 45px;
+    }
+
+    .tabla-programacion .prog-input.input-hora {
+      width: 55px;
     }
 
     .tabla-programacion .drag-handle {
