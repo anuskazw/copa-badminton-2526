@@ -106,7 +106,7 @@ const individualParticipantes = [
           <div class="round-label">Final</div>
           <div class="match final-match" data-match>
             <div class="match-team" data-team="1">
-              <span class="team-name">Gan. SF1</span>
+              <input type="text" class="team-name-input" data-finalist="dobles-sf1" placeholder="Gan. SF1" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -115,7 +115,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <span class="team-name">Gan. SF2</span>
+              <input type="text" class="team-name-input" data-finalist="dobles-sf2" placeholder="Gan. SF2" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -132,7 +132,7 @@ const individualParticipantes = [
         <div class="round-label">3er - 4º Puesto</div>
         <div class="match" data-match>
           <div class="match-team" data-team="1">
-            <span class="team-name">Perd. SF1</span>
+            <input type="text" class="team-name-input" data-finalist="dobles-perd1" placeholder="Perd. SF1" />
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -141,7 +141,7 @@ const individualParticipantes = [
             </div>
           </div>
           <div class="match-team" data-team="2">
-            <span class="team-name">Perd. SF2</span>
+            <input type="text" class="team-name-input" data-finalist="dobles-perd2" placeholder="Perd. SF2" />
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -246,7 +246,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <span class="team-name">Gan. D/E</span>
+              <input type="text" class="team-name-input" data-finalist="individual-gan-de" placeholder="Gan. D/E" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -287,7 +287,7 @@ const individualParticipantes = [
           <div class="round-label">Final</div>
           <div class="match final-match" data-match>
             <div class="match-team" data-team="1">
-              <span class="team-name">Gan. SF1</span>
+              <input type="text" class="team-name-input" data-finalist="individual-sf1" placeholder="Gan. SF1" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -296,7 +296,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <span class="team-name">Gan. SF2</span>
+              <input type="text" class="team-name-input" data-finalist="individual-sf2" placeholder="Gan. SF2" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -314,7 +314,7 @@ const individualParticipantes = [
           <div class="round-label">3er - 4º Puesto</div>
           <div class="match" data-match>
             <div class="match-team" data-team="1">
-              <span class="team-name">Perd. SF1</span>
+              <input type="text" class="team-name-input" data-finalist="individual-perd1" placeholder="Perd. SF1" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -323,7 +323,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <span class="team-name">Perd. SF2</span>
+              <input type="text" class="team-name-input" data-finalist="individual-perd2" placeholder="Perd. SF2" />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -338,7 +338,7 @@ const individualParticipantes = [
           <div class="round-label">5º Puesto</div>
           <div class="match bye-match">
             <div class="match-team">
-              <span class="team-name">Perdedora D vs E</span>
+              <input type="text" class="team-name-input" data-finalist="individual-perd-de" placeholder="Perdedora D vs E" />
             </div>
           </div>
         </div>
@@ -450,6 +450,83 @@ const individualParticipantes = [
     input.addEventListener('input', calculateSetsWon);
   });
 
+  // Autocompletar finalistas basándose en resultados de semifinales
+  function updateFinalists() {
+    // DOBLES FEMENINO
+    const doblesMatches = Array.from(document.querySelectorAll('#dobles-femenino [data-match]'));
+    // Partidos: 0=SF1, 1=SF2, 2=Final, 3=3erPuesto
+    const doblesSF1 = doblesMatches[0];
+    const doblesSF2 = doblesMatches[1];
+
+    if (doblesSF1) {
+      const result = getMatchResult(doblesSF1);
+      if (result?.played && result.winner !== 0) {
+        const winner = result.winner === 1 ? result.team1.name : result.team2.name;
+        const loser = result.winner === 1 ? result.team2.name : result.team1.name;
+        const ganInput = document.querySelector('[data-finalist="dobles-sf1"]');
+        const perdInput = document.querySelector('[data-finalist="dobles-perd1"]');
+        if (ganInput && winner) ganInput.value = winner;
+        if (perdInput && loser) perdInput.value = loser;
+      }
+    }
+
+    if (doblesSF2) {
+      const result = getMatchResult(doblesSF2);
+      if (result?.played && result.winner !== 0) {
+        const winner = result.winner === 1 ? result.team1.name : result.team2.name;
+        const loser = result.winner === 1 ? result.team2.name : result.team1.name;
+        const ganInput = document.querySelector('[data-finalist="dobles-sf2"]');
+        const perdInput = document.querySelector('[data-finalist="dobles-perd2"]');
+        if (ganInput && winner) ganInput.value = winner;
+        if (perdInput && loser) perdInput.value = loser;
+      }
+    }
+
+    // INDIVIDUAL FEMENINO
+    const indMatches = Array.from(document.querySelectorAll('#individual-femenino [data-match]'));
+    // Partidos: 0=Primera Ronda (D vs E), 1=SF1, 2=SF2, 3=Final, 4=3erPuesto
+    const indPrimeraRonda = indMatches[0];
+    const indSF1 = indMatches[1];
+    const indSF2 = indMatches[2];
+
+    // Primera ronda: ganador va a SF1, perdedor va a 5º puesto
+    if (indPrimeraRonda) {
+      const result = getMatchResult(indPrimeraRonda);
+      if (result?.played && result.winner !== 0) {
+        const winner = result.winner === 1 ? result.team1.name : result.team2.name;
+        const loser = result.winner === 1 ? result.team2.name : result.team1.name;
+        const ganDEInput = document.querySelector('[data-finalist="individual-gan-de"]');
+        const perdDEInput = document.querySelector('[data-finalist="individual-perd-de"]');
+        if (ganDEInput && winner) ganDEInput.value = winner;
+        if (perdDEInput && loser) perdDEInput.value = loser;
+      }
+    }
+
+    if (indSF1) {
+      const result = getMatchResult(indSF1);
+      if (result?.played && result.winner !== 0) {
+        const winner = result.winner === 1 ? result.team1.name : result.team2.name;
+        const loser = result.winner === 1 ? result.team2.name : result.team1.name;
+        const ganInput = document.querySelector('[data-finalist="individual-sf1"]');
+        const perdInput = document.querySelector('[data-finalist="individual-perd1"]');
+        if (ganInput && winner) ganInput.value = winner;
+        if (perdInput && loser) perdInput.value = loser;
+      }
+    }
+
+    if (indSF2) {
+      const result = getMatchResult(indSF2);
+      if (result?.played && result.winner !== 0) {
+        const winner = result.winner === 1 ? result.team1.name : result.team2.name;
+        const loser = result.winner === 1 ? result.team2.name : result.team1.name;
+        const ganInput = document.querySelector('[data-finalist="individual-sf2"]');
+        const perdInput = document.querySelector('[data-finalist="individual-perd2"]');
+        if (ganInput && winner) ganInput.value = winner;
+        if (perdInput && loser) perdInput.value = loser;
+      }
+    }
+  }
+
   // Sincronizar nombres de participantes
   document.querySelectorAll('[data-participante]').forEach(input => {
     input.addEventListener('input', (e) => {
@@ -457,6 +534,8 @@ const individualParticipantes = [
       document.querySelectorAll(`[data-show="${key}"]`).forEach(span => {
         span.textContent = e.target.value;
       });
+      // Actualizar finalistas cuando cambian los nombres
+      updateFinalists();
     });
   });
 
@@ -496,8 +575,10 @@ const individualParticipantes = [
       }
     }
 
-    const name1 = team1.querySelector('.team-name')?.textContent || '';
-    const name2 = team2.querySelector('.team-name')?.textContent || '';
+    const nameInput1 = team1.querySelector('.team-name-input');
+    const nameInput2 = team2.querySelector('.team-name-input');
+    const name1 = nameInput1 ? nameInput1.value : (team1.querySelector('.team-name')?.textContent || '');
+    const name2 = nameInput2 ? nameInput2.value : (team2.querySelector('.team-name')?.textContent || '');
 
     return {
       team1: { name: name1, sets: sets1, points: points1 },
@@ -508,18 +589,23 @@ const individualParticipantes = [
   }
 
   function updateClasificacion() {
-    // DOBLES FEMENINO
+    // DOBLES FEMENINO - Clasificación por posición en bracket
     const doblesSection = document.getElementById('dobles-femenino');
-    const doblesMatches = doblesSection.querySelectorAll('[data-match]');
+    const doblesMatches = Array.from(doblesSection.querySelectorAll('[data-match]'));
     const doblesTable = doblesSection.querySelector('[data-clasificacion="dobles"] tbody');
+
+    // Partidos: 0=SF1, 1=SF2, 2=Final, 3=3erPuesto
+    const finalMatch = doblesMatches[2];
+    const tercerMatch = doblesMatches[3];
 
     const doblesStats = {};
     const initStats = (name) => {
       if (name && !doblesStats[name] && !name.includes('Gan.') && !name.includes('Perd.')) {
-        doblesStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0 };
+        doblesStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0, posicion: 99 };
       }
     };
 
+    // Procesar todos los partidos para estadísticas
     doblesMatches.forEach(match => {
       const result = getMatchResult(match);
       if (!result || !result.played) return;
@@ -545,9 +631,28 @@ const individualParticipantes = [
       }
     });
 
+    // Determinar posiciones por bracket
+    const finalResult = getMatchResult(finalMatch);
+    const tercerResult = getMatchResult(tercerMatch);
+
+    if (finalResult?.played) {
+      const winner = finalResult.winner === 1 ? finalResult.team1.name : finalResult.team2.name;
+      const loser = finalResult.winner === 1 ? finalResult.team2.name : finalResult.team1.name;
+      if (doblesStats[winner]) doblesStats[winner].posicion = 1;
+      if (doblesStats[loser]) doblesStats[loser].posicion = 2;
+    }
+
+    if (tercerResult?.played) {
+      const winner = tercerResult.winner === 1 ? tercerResult.team1.name : tercerResult.team2.name;
+      const loser = tercerResult.winner === 1 ? tercerResult.team2.name : tercerResult.team1.name;
+      if (doblesStats[winner]) doblesStats[winner].posicion = 3;
+      if (doblesStats[loser]) doblesStats[loser].posicion = 4;
+    }
+
+    // Ordenar por posición en bracket, luego por PG
     const doblesRanking = Object.entries(doblesStats)
       .map(([name, stats]) => ({ name, ...stats, diff: stats.setsF - stats.setsC }))
-      .sort((a, b) => b.pg - a.pg || b.diff - a.diff || b.setsF - a.setsF);
+      .sort((a, b) => a.posicion - b.posicion || b.pg - a.pg || b.diff - a.diff);
 
     const doblesRows = doblesTable.querySelectorAll('tr');
     doblesRows.forEach((row, i) => {
@@ -566,18 +671,24 @@ const individualParticipantes = [
       }
     });
 
-    // INDIVIDUAL FEMENINO
+    // INDIVIDUAL FEMENINO - Clasificación por posición en bracket
     const individualSection = document.getElementById('individual-femenino');
-    const individualMatches = individualSection.querySelectorAll('[data-match]');
+    const individualMatches = Array.from(individualSection.querySelectorAll('[data-match]'));
     const individualTable = individualSection.querySelector('[data-clasificacion="individual"] tbody');
+
+    // Partidos: 0=Primera Ronda (D vs E), 1=SF1, 2=SF2, 3=Final, 4=3erPuesto
+    const primeraRondaMatch = individualMatches[0];
+    const indFinalMatch = individualMatches[3];
+    const indTercerMatch = individualMatches[4];
 
     const individualStats = {};
     const initIndStats = (name) => {
       if (name && !individualStats[name] && !name.includes('Gan.') && !name.includes('Perd.')) {
-        individualStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0 };
+        individualStats[name] = { pj: 0, pg: 0, pp: 0, setsF: 0, setsC: 0, posicion: 99 };
       }
     };
 
+    // Procesar todos los partidos para estadísticas
     individualMatches.forEach(match => {
       const result = getMatchResult(match);
       if (!result || !result.played) return;
@@ -603,9 +714,35 @@ const individualParticipantes = [
       }
     });
 
+    // Determinar posiciones por bracket
+    const indFinalResult = getMatchResult(indFinalMatch);
+    const indTercerResult = getMatchResult(indTercerMatch);
+    const primeraRondaResult = getMatchResult(primeraRondaMatch);
+
+    if (indFinalResult?.played) {
+      const winner = indFinalResult.winner === 1 ? indFinalResult.team1.name : indFinalResult.team2.name;
+      const loser = indFinalResult.winner === 1 ? indFinalResult.team2.name : indFinalResult.team1.name;
+      if (individualStats[winner]) individualStats[winner].posicion = 1;
+      if (individualStats[loser]) individualStats[loser].posicion = 2;
+    }
+
+    if (indTercerResult?.played) {
+      const winner = indTercerResult.winner === 1 ? indTercerResult.team1.name : indTercerResult.team2.name;
+      const loser = indTercerResult.winner === 1 ? indTercerResult.team2.name : indTercerResult.team1.name;
+      if (individualStats[winner]) individualStats[winner].posicion = 3;
+      if (individualStats[loser]) individualStats[loser].posicion = 4;
+    }
+
+    // 5º puesto: perdedor de primera ronda (D vs E)
+    if (primeraRondaResult?.played) {
+      const loser = primeraRondaResult.winner === 1 ? primeraRondaResult.team2.name : primeraRondaResult.team1.name;
+      if (individualStats[loser]) individualStats[loser].posicion = 5;
+    }
+
+    // Ordenar por posición en bracket, luego por PG
     const individualRanking = Object.entries(individualStats)
       .map(([name, stats]) => ({ name, ...stats, diff: stats.setsF - stats.setsC }))
-      .sort((a, b) => b.pg - a.pg || b.diff - a.diff || b.setsF - a.setsF);
+      .sort((a, b) => a.posicion - b.posicion || b.pg - a.pg || b.diff - a.diff);
 
     const individualRows = individualTable.querySelectorAll('tr');
     individualRows.forEach((row, i) => {
@@ -626,7 +763,10 @@ const individualParticipantes = [
   }
 
   document.querySelectorAll('[data-set]').forEach(input => {
-    input.addEventListener('input', updateClasificacion);
+    input.addEventListener('input', () => {
+      updateFinalists();
+      updateClasificacion();
+    });
   });
 
   // === SINCRONIZACIÓN CON API ===
@@ -641,11 +781,13 @@ const individualParticipantes = [
     const data = {
       dobles: {
         participantes: {},
-        partidos: []
+        partidos: [],
+        finalistas: {}
       },
       individual: {
         participantes: {},
-        partidos: []
+        partidos: [],
+        finalistas: {}
       },
       mostrarProgramacion: toggleVisible ? toggleVisible.checked : true
     };
@@ -656,10 +798,22 @@ const individualParticipantes = [
       data.dobles.participantes[key] = input.value;
     });
 
+    // Finalistas dobles (Gan. SF1, Gan. SF2)
+    document.querySelectorAll('#dobles-femenino [data-finalist]').forEach(input => {
+      const key = input.dataset.finalist.replace('dobles-', '');
+      data.dobles.finalistas[key] = input.value;
+    });
+
     // Participantes individual
     document.querySelectorAll('#individual-femenino [data-participante]').forEach(input => {
       const key = input.dataset.participante.replace('individual-', '');
       data.individual.participantes[key] = input.value;
+    });
+
+    // Finalistas individual (Gan. SF1, Gan. SF2)
+    document.querySelectorAll('#individual-femenino [data-finalist]').forEach(input => {
+      const key = input.dataset.finalist.replace('individual-', '');
+      data.individual.finalistas[key] = input.value;
     });
 
     // Partidos dobles
@@ -719,6 +873,16 @@ const individualParticipantes = [
       });
     }
 
+    // Finalistas dobles (Gan. SF1, Gan. SF2)
+    if (data.dobles?.finalistas) {
+      Object.entries(data.dobles.finalistas).forEach(([key, value]) => {
+        const input = document.querySelector(`[data-finalist="dobles-${key}"]`);
+        if (input && input.value !== value) {
+          input.value = value;
+        }
+      });
+    }
+
     // Participantes individual
     if (data.individual?.participantes) {
       Object.entries(data.individual.participantes).forEach(([key, value]) => {
@@ -728,6 +892,16 @@ const individualParticipantes = [
           document.querySelectorAll(`[data-show="individual-${key}"]`).forEach(span => {
             span.textContent = value;
           });
+        }
+      });
+    }
+
+    // Finalistas individual (Gan. SF1, Gan. SF2)
+    if (data.individual?.finalistas) {
+      Object.entries(data.individual.finalistas).forEach(([key, value]) => {
+        const input = document.querySelector(`[data-finalist="individual-${key}"]`);
+        if (input && input.value !== value) {
+          input.value = value;
         }
       });
     }
@@ -764,6 +938,7 @@ const individualParticipantes = [
     }
 
     calculateSetsWon();
+    updateFinalists();
     updateClasificacion();
   }
 
@@ -992,6 +1167,15 @@ const individualParticipantes = [
     input.addEventListener('input', () => {
       hasChanges = true;
       calculateSetsWon();
+      updateFinalists();
+      updateClasificacion();
+    });
+  });
+
+  // Listeners específicos para inputs de finalistas (Gan. SF1, Gan. SF2)
+  document.querySelectorAll('[data-finalist]').forEach(input => {
+    input.addEventListener('blur', () => {
+      saveData();
       updateClasificacion();
     });
   });
@@ -1306,6 +1490,27 @@ const individualParticipantes = [
     font-size: 0.85rem;
     font-weight: 500;
     flex: 1;
+  }
+
+  .team-name-input {
+    font-size: 0.85rem;
+    font-weight: 500;
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 4px 0;
+    background: transparent;
+    min-width: 120px;
+  }
+
+  .team-name-input:focus {
+    outline: none;
+    border-bottom-color: #999;
+  }
+
+  .team-name-input::placeholder {
+    color: #999;
+    font-style: italic;
   }
 
   .score-total {
@@ -1798,6 +2003,12 @@ const individualParticipantes = [
       margin-bottom: 4px;
     }
 
+    .team-name-input {
+      width: 100%;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
     .score-total {
       margin-right: 0;
     }
@@ -1941,7 +2152,8 @@ const individualParticipantes = [
       padding: 8px 10px;
     }
 
-    .team-name {
+    .team-name,
+    .team-name-input {
       font-size: 0.8rem;
     }
 
