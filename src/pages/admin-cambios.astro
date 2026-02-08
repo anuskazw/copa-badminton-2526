@@ -106,7 +106,7 @@ const individualParticipantes = [
           <div class="round-label">Final</div>
           <div class="match final-match" data-match>
             <div class="match-team" data-team="1">
-              <input type="text" class="team-name-input" data-finalist="dobles-sf1" placeholder="Gan. SF1" />
+              <input type="text" class="team-name-input" data-finalist="dobles-sf1" placeholder="Gan. SF1" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -115,7 +115,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <input type="text" class="team-name-input" data-finalist="dobles-sf2" placeholder="Gan. SF2" />
+              <input type="text" class="team-name-input" data-finalist="dobles-sf2" placeholder="Gan. SF2" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -132,7 +132,7 @@ const individualParticipantes = [
         <div class="round-label">3er - 4º Puesto</div>
         <div class="match" data-match>
           <div class="match-team" data-team="1">
-            <input type="text" class="team-name-input" data-finalist="dobles-perd1" placeholder="Perd. SF1" />
+            <input type="text" class="team-name-input" data-finalist="dobles-perd1" placeholder="Perd. SF1" readonly />
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -141,7 +141,7 @@ const individualParticipantes = [
             </div>
           </div>
           <div class="match-team" data-team="2">
-            <input type="text" class="team-name-input" data-finalist="dobles-perd2" placeholder="Perd. SF2" />
+            <input type="text" class="team-name-input" data-finalist="dobles-perd2" placeholder="Perd. SF2" readonly />
             <div class="score-total"><span data-sets-won>-</span></div>
             <div class="score-boxes">
               <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -246,7 +246,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <input type="text" class="team-name-input" data-finalist="individual-gan-de" placeholder="Gan. D/E" />
+              <input type="text" class="team-name-input" data-finalist="individual-gan-de" placeholder="Gan. D/E" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -287,7 +287,7 @@ const individualParticipantes = [
           <div class="round-label">Final</div>
           <div class="match final-match" data-match>
             <div class="match-team" data-team="1">
-              <input type="text" class="team-name-input" data-finalist="individual-sf1" placeholder="Gan. SF1" />
+              <input type="text" class="team-name-input" data-finalist="individual-sf1" placeholder="Gan. SF1" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -296,7 +296,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <input type="text" class="team-name-input" data-finalist="individual-sf2" placeholder="Gan. SF2" />
+              <input type="text" class="team-name-input" data-finalist="individual-sf2" placeholder="Gan. SF2" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -314,7 +314,7 @@ const individualParticipantes = [
           <div class="round-label">3er - 4º Puesto</div>
           <div class="match" data-match>
             <div class="match-team" data-team="1">
-              <input type="text" class="team-name-input" data-finalist="individual-perd1" placeholder="Perd. SF1" />
+              <input type="text" class="team-name-input" data-finalist="individual-perd1" placeholder="Perd. SF1" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -323,7 +323,7 @@ const individualParticipantes = [
               </div>
             </div>
             <div class="match-team" data-team="2">
-              <input type="text" class="team-name-input" data-finalist="individual-perd2" placeholder="Perd. SF2" />
+              <input type="text" class="team-name-input" data-finalist="individual-perd2" placeholder="Perd. SF2" readonly />
               <div class="score-total"><span data-sets-won>-</span></div>
               <div class="score-boxes">
                 <input type="text" class="score-input" maxlength="2" data-set="1" />
@@ -338,7 +338,7 @@ const individualParticipantes = [
           <div class="round-label">5º Puesto</div>
           <div class="match bye-match">
             <div class="match-team">
-              <input type="text" class="team-name-input" data-finalist="individual-perd-de" placeholder="Perdedora D vs E" />
+              <input type="text" class="team-name-input" data-finalist="individual-perd-de" placeholder="Perdedora D vs E" readonly />
             </div>
           </div>
         </div>
@@ -1168,14 +1168,6 @@ const individualParticipantes = [
       hasChanges = true;
       calculateSetsWon();
       updateFinalists();
-      updateClasificacion();
-    });
-  });
-
-  // Listeners específicos para inputs de finalistas (Gan. SF1, Gan. SF2)
-  document.querySelectorAll('[data-finalist]').forEach(input => {
-    input.addEventListener('blur', () => {
-      saveData();
       updateClasificacion();
     });
   });
